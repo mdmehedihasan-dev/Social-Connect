@@ -110,7 +110,7 @@ const Registration = () => {
             theme: "dark",
           }
         );
-        navigate("/home");
+        navigate("/dashboard/home");
       })
       .catch((error) => {});
   };
@@ -204,7 +204,7 @@ const Registration = () => {
             onClick={handleGSubmit}
             btnName={((<FaGoogle />), "Login With Google")}
             className={
-              "bg-red-200 text-blue-900 border-2 border-solid border-yellow-200"
+              "bg-green-400 text-blue-900 border-2 border-solid border-yellow-200"
             }
           />
         </div>

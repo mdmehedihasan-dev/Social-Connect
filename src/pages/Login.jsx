@@ -58,15 +58,27 @@ const Login = () => {
       signInWithEmailAndPassword(auth, regData.email, regData.password)
         .then((userCredential) => {
           setLoading(false);
+          if(!userCredential.user.emailVerified){
+            toast.warning(
+              "Please varify your email first",
+              {
+                position: "top-center",
+                theme: "dark",
+              }
+            );
+          } else{
+            toast.success(
+              "Login successful🙋‍♂️💌",
+              {
+                position: "top-center",
+                theme: "dark",
+              }
+            );
+            navigate('/dashboard/home')
+          }
 
-          toast.success(
-            "Login successful🙋‍♂️💌",
-            {
-              position: "top-center",
-              theme: "dark",
-            }
-          );
-          navigate('/home')
+         
+         
 
           // console.log("User Created:", userCredential);
         })
