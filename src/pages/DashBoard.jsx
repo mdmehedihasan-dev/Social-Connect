@@ -5,7 +5,7 @@ import { FaBars } from "react-icons/fa";
 import { useState } from "react";
 
 const DashBoard = () => {
-  const [show, setShow] = useState(true);
+  const [show, setShow] = useState(false);
   return (
     <div className="flex gap-x-5">
       <FaBars
