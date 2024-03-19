@@ -5,6 +5,7 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import ForgetPassword from "./pages/ForgetPassword";
 
 
 
@@ -16,6 +17,7 @@ function App() {
           <Route path="/home" element={<Home/>} />
           <Route path="/sign-up" element={<Registration/>}/>
           <Route path="/" element={<Login/>}/>
+          <Route path="/forgetpassword" element={<ForgetPassword/>}/>
          
       </Route>
     )

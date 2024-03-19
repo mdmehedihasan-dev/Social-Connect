@@ -5,12 +5,14 @@ import { Link } from "react-router-dom";
 import Button from "../components/Button";
 import { useState } from "react";
 import { Alert } from "flowbite-react";
-import { FaRegEye } from "react-icons/fa";
+import { FaGoogle, FaRegEye } from "react-icons/fa";
 import { FaRegEyeSlash } from "react-icons/fa";
 import {
   getAuth,
   createUserWithEmailAndPassword,
   sendEmailVerification,
+  signInWithPopup,
+  GoogleAuthProvider,
 } from "firebase/auth";
 import { Bars } from "react-loader-spinner";
 import { toast } from "react-toastify";
@@ -18,7 +20,7 @@ import { useNavigate } from "react-router-dom";
 
 const Registration = () => {
   const auth = getAuth();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [showPass, setShowPass] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -73,7 +75,7 @@ const Registration = () => {
               }
             );
           });
-          navigate('/')
+          navigate("/");
 
           // console.log("User Created:", userCredential);
         })
@@ -81,14 +83,36 @@ const Registration = () => {
           setLoading(false);
           const errorCode = error.code;
           const errorMessage = error.message;
-          if(errorMessage.includes("email-already-in-use")){
-            setRegErrorData( {...regErrorData ,email:"Email already registerd🥴"});
+          if (errorMessage.includes("email-already-in-use")) {
+            setRegErrorData({
+              ...regErrorData,
+              email: "Email already registerd🥴",
+            });
           }
         });
     }
     // setRegData({
     //   name:"",email:"",password:""
     // })
+  };
+
+  // ======================== Login with Google ===============
+
+  const handleGSubmit = () => {
+    const provider = new GoogleAuthProvider();
+
+    signInWithPopup(auth, provider)
+      .then((result) => {
+        toast.success(
+          "Login SuccessFull💌",
+          {
+            position: "top-center",
+            theme: "dark",
+          }
+        );
+        navigate("/home");
+      })
+      .catch((error) => {});
   };
 
   return (
@@ -106,7 +130,7 @@ const Registration = () => {
           <div className="">
             <label>Name :</label> <br />
             <input
-              className="w-full px-2 py-1 mt-2 rounded-md md:w-96 outline-blue-700 outline"
+              className="w-full px-2 py-1 rounded-md md:w-96 outline-blue-700 outline"
               placeholder="Fullname"
               type="text"
               id="name"
@@ -121,7 +145,7 @@ const Registration = () => {
           <div className="">
             <label>Email :</label> <br />
             <input
-              className="w-full px-2 py-1 mt-2 rounded-md md:w-96 outline-blue-700 outline"
+              className="w-full px-2 py-1 rounded-md md:w-96 outline-blue-700 outline"
               placeholder="name@gmail.com"
               type="email"
               onChange={handleChange}
@@ -136,7 +160,7 @@ const Registration = () => {
           <div className="relative">
             <label>Password :</label> <br />
             <input
-              className="w-full px-2 py-1 mt-2 rounded-md md:w-96 outline-blue-700 outline"
+              className="w-full px-2 py-1 rounded-md md:w-96 outline-blue-700 outline"
               placeholder="********"
               type={!showPass ? "password" : "text"}
               id="password"
@@ -176,10 +200,17 @@ const Registration = () => {
               <Button onClick={handleSubmit} btnName={"Sign-Up"} />
             )}
           </div>
+          <Button
+            onClick={handleGSubmit}
+            btnName={((<FaGoogle />), "Login With Google")}
+            className={
+              "bg-red-200 text-blue-900 border-2 border-solid border-yellow-200"
+            }
+          />
         </div>
 
         {/*============= data input area =========== */}
-        <div className="font-semibold text-center ">
+        <div className="mt-5 font-semibold text-center ">
           <Link to={"/"}>
             Already have an account ?
             <span className="font-semibold text-blue-600 underline">

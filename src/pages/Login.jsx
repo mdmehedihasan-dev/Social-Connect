@@ -179,8 +179,9 @@ const Login = () => {
             )}
               </div>
 
-
+              <Link to={'/forgetpassword'}>  
               <Button btnName={"Forget Password"} className="mt-0 bg-red-500" />
+              </Link>
               <Link className="text-base text-center border-t-2" to={"/sign-up"}>
               
               <span className="font-semibold text-blue-600 underline">
