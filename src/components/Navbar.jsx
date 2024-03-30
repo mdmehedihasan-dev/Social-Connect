@@ -28,17 +28,17 @@ const Navbar = () => {
     }
 
   return (
-    <div className="w-40 min-h-screen bg-primary rounded-r-xl">
+    <div className="min-h-screen bg-primary w-36 rounded-r-xl">
        <div className="pt-9" >
        <Image className="mx-auto" imgSrc={ProPic} />
        </div>
 
        <div className="mt-20 space-y-10 text-4xl text-white">
-        <FaHome className="w-1/2 py-1 pl-2 pr-10 rounded-l-md ml-14 hover:bg-white hover:text-primary"/>
-        <AiFillMessage className="w-1/2 py-1 pl-2 pr-10 rounded-l-md ml-14 hover:bg-white hover:text-primary"/>
-        <IoMdNotifications className="w-1/2 py-1 pl-2 pr-10 rounded-l-md ml-14 hover:bg-white hover:text-primary"/>
-        <IoMdSettings className="w-1/2 py-1 pl-2 pr-10 rounded-l-md ml-14 hover:bg-white hover:text-primary"/>
-        <TbLogout2 onClick={handleSignOut} className="w-1/2 py-1 pl-2 pr-10 rounded-l-md ml-14 hover:bg-white hover:text-primary" />
+        <FaHome className="active"/>
+        <AiFillMessage className="w-[60%] py-1 pl-2 pr-10  rounded-l-md ml-14 "/>
+        <IoMdNotifications className="w-[60%] py-1 pl-2 pr-10 rounded-l-md ml-14 "/>
+        <IoMdSettings className="w-[60%] py-1 pl-2 pr-10 rounded-l-md ml-14 "/>
+        <TbLogout2 onClick={handleSignOut} className="w-1/2 py-1 pl-2 pr-10 rounded-l-md ml-14 " />
        </div>
        
     </div>
