@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import Image from "./Image"
 import ProPic from '../../public/profile.png'
 import { FaHome } from "react-icons/fa";
@@ -38,7 +39,7 @@ const Navbar = () => {
        <div className="flex flex-col justify-center mt-20 text-4xl text-white gap-y-8">
         <Link className={location.pathname == "/dashboard/home" && "active"} to={"/dashboard/home"}><FaHome className="mx-auto icon w-[60%] "/></Link>
        <Link className={location.pathname == "/dashboard/message" && "active"}  to={'/dashboard/message'}> <AiFillMessage className="mx-auto icon w-[60%] "/></Link>
-        <Link className={location.pathname == "#" && "active"}  to={'#'}><IoMdNotifications className="mx-auto icon w-[60%] "/></Link>
+        {/* <Link className={location.pathname == "#" && "active"}  to={'#'}><IoMdNotifications className="mx-auto icon w-[60%] "/></Link>  */}
         <Link className={location.pathname == "/dashboard/setting" && "active"}  to={'/dashboard/setting'}><IoMdSettings className="mx-auto icon w-[60%] "/></Link>
        </div>
 
