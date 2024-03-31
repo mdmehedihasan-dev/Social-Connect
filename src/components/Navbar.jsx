@@ -6,7 +6,7 @@ import { IoMdNotifications ,IoMdSettings} from "react-icons/io";
 import { TbLogout2 } from "react-icons/tb";
 // import { CiLogout } from "react-icons/ci";
 import { getAuth, signOut } from "firebase/auth";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate,useLocation  } from "react-router-dom";
 
 
 
@@ -16,6 +16,8 @@ import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
 
+  let location = useLocation ()
+  console.log(location)
     const auth = getAuth();
     const navigate = useNavigate()
 
@@ -33,12 +35,15 @@ const Navbar = () => {
        <Image className="mx-auto" imgSrc={ProPic} />
        </div>
 
-       <div className="mt-20 space-y-10 text-4xl text-white">
-        <FaHome className="active"/>
-        <AiFillMessage className="w-[60%] py-1 pl-2 pr-10  rounded-l-md ml-14 "/>
-        <IoMdNotifications className="w-[60%] py-1 pl-2 pr-10 rounded-l-md ml-14 "/>
-        <IoMdSettings className="w-[60%] py-1 pl-2 pr-10 rounded-l-md ml-14 "/>
-        <TbLogout2 onClick={handleSignOut} className="w-1/2 py-1 pl-2 pr-10 rounded-l-md ml-14 " />
+       <div className="flex flex-col justify-center mt-20 text-4xl text-white gap-y-8">
+        <Link className={location.pathname == "/dashboard/home" && "active"} to={"/dashboard/home"}><FaHome className="mx-auto icon w-[60%] "/></Link>
+       <Link className={location.pathname == "/dashboard/message" && "active"}  to={'/dashboard/message'}> <AiFillMessage className="mx-auto icon w-[60%] "/></Link>
+        <Link className={location.pathname == "#" && "active"}  to={'#'}><IoMdNotifications className="mx-auto icon w-[60%] "/></Link>
+        <Link className={location.pathname == "/dashboard/setting" && "active"}  to={'/dashboard/setting'}><IoMdSettings className="mx-auto icon w-[60%] "/></Link>
+       </div>
+
+       <div className="mt-20 text-4xl font-bold text-white">
+       <TbLogout2 onClick={handleSignOut} className="mx-auto w-[60%]" />
        </div>
        
     </div>
