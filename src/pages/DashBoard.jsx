@@ -1,16 +1,29 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 // import { useState } from "react"
 import { FaBars } from "react-icons/fa";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 
 const DashBoard = () => {
   const [show, setShow] = useState(false);
+  const navigate = useNavigate()
+
+  let data = useSelector((state)=>state?.user?.value)
+  console.log(data)
+
+  useEffect(()=>{
+    if(!data?.email){
+      navigate("/")
+    }
+  },[])
+
+
   return (
     <div className="flex gap-x-5">
       <FaBars
         onClick={() => setShow(!show)}
-        className="absolute block text-2xl top-2 right-2 text-primary md:hidden"
+        className="absolute block text-2xl text-black top-2 right-2 md:hidden"
       />
       <div className="absolute block md:hidden">{show && <Navbar />}</div>
 

@@ -2,7 +2,7 @@
 /* eslint-disable react/no-unescaped-entities */
 import { Link } from "react-router-dom";
 import Button from "../components/Button";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Alert } from "flowbite-react";
 import { FaRegEye } from "react-icons/fa";
 import { FaRegEyeSlash } from "react-icons/fa";
@@ -13,13 +13,23 @@ import {
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { Bars } from "react-loader-spinner";
+import { useDispatch, useSelector } from "react-redux";
+import { activeUser } from "../slice/userSlice.js";
 
 const Login = () => {
-
+  const dispatch = useDispatch()
   const auth = getAuth();
   const navigate = useNavigate()
   const [showPass, setShowPass] = useState(false);
   const [loading, setLoading] = useState(false);
+  let data = useSelector((state)=>state?.user?.value)
+
+  useEffect(()=>{
+    if(data?.email){
+      navigate('/dashboard/home')
+    }
+  })
+
 
   let [regData, setRegData] = useState({
     
@@ -74,6 +84,8 @@ const Login = () => {
                 theme: "dark",
               }
             );
+            localStorage.setItem("user",JSON.stringify(userCredential.user))
+            dispatch(activeUser(userCredential.user))
             navigate('/dashboard/home')
           }
 
