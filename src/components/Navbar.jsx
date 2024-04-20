@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import Image from "./Image";
-import {  FaHome } from "react-icons/fa";
+import {  FaHome, FaMoon, FaSun } from "react-icons/fa";
 import { AiFillMessage } from "react-icons/ai";
 import {  IoMdSettings } from "react-icons/io";
 import { TbLogout2 } from "react-icons/tb";
@@ -15,10 +15,12 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import "cropperjs/dist/cropper.css";
+import { toggleTheme } from "../slice/themeSlice";
 const defaultSrc =
   "https://raw.githubusercontent.com/roadmanfong/react-cropper/master/example/img/child.jpg";
 
 const Navbar = () => {
+  const {theme} = useSelector(state=>state.theme)
 
   // state for modal 
 
@@ -95,7 +97,7 @@ const Navbar = () => {
   // style end modal ==========
 
   return (
-    <div className="min-h-screen bg-black w-36 rounded-r-xl">
+    <div className="min-h-screen bg-gray-600 w-36 rounded-r-xl">
       <div onClick={handleOpen} className="cursor-pointer pt-9">
         <Image className="mx-auto" imgSrc={userInfo.photoURL} />
       </div>
@@ -125,6 +127,18 @@ const Navbar = () => {
         >
           <IoMdSettings className="mx-auto icon w-[60%] " />
         </Link>
+
+         
+        <button className="mx-auto" 
+        onClick={()=>dispatch(toggleTheme())}
+        >
+          {
+            theme === "light" ?  <FaMoon /> : <FaSun/>
+          }
+         
+        </button>
+
+
       </div>
 
       <div className="mt-20 text-4xl font-bold text-white cursor-pointer">

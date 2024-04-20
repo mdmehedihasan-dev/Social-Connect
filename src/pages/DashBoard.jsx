@@ -23,7 +23,7 @@ const DashBoard = () => {
     <div className="flex gap-x-5">
       <FaBars
         onClick={() => setShow(!show)}
-        className="absolute block text-2xl text-black top-2 right-2 md:hidden"
+        className="absolute block text-2xl text-black cursor-pointer top-2 right-2 md:hidden"
       />
       <div className="absolute block md:hidden">{show && <Navbar />}</div>
 
