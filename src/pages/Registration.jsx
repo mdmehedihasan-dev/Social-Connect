@@ -1,6 +1,5 @@
 /* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
-// import { Link } from "react-router-dom";
 import { Link } from "react-router-dom";
 import Button from "../components/Button";
 import { useState } from "react";
@@ -13,6 +12,7 @@ import {
   sendEmailVerification,
   signInWithPopup,
   GoogleAuthProvider,
+  updateProfile
 } from "firebase/auth";
 import { Bars } from "react-loader-spinner";
 import { toast } from "react-toastify";
@@ -63,8 +63,10 @@ const Registration = () => {
       setLoading(true);
       createUserWithEmailAndPassword(auth, regData.email, regData.password)
         .then((userCredential) => {
-          setLoading(false);
-
+          updateProfile(auth.currentUser, {
+            displayName:regData.name, photoURL: "https://firebasestorage.googleapis.com/v0/b/firechat-8d0d3.appspot.com/o/avatar%2Fimages.jpeg?alt=media&token=166d0476-e902-4ad0-91b7-d89adb051ac7&fbclid=IwZXh0bgNhZW0CMTAAAR2GrFsfmDiD2J6BMLDN27C_h1vLRkmJukexqNoCGaejzGJoLci9ynSCqEY_aem_ASMK10Mw7eyescvITtTQaBmsWmvqhtyIwK6IvFlkZHNfP48Jd3UTgiIrUqu47vdFND7lvEJ_WGmXEPmXghx0m8Eo"
+          }).then(() => {
+            setLoading(false);
           sendEmailVerification(auth.currentUser).then(() => {
             // Email verification sent!
             toast.success(
@@ -76,8 +78,10 @@ const Registration = () => {
             );
           });
           navigate("/");
-
-          // console.log("User Created:", userCredential);
+          }).catch((error) => {
+            setLoading(false)
+            console.log(error)
+          });
         })
         .catch((error) => {
           setLoading(false);
