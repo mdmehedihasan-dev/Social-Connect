@@ -60,20 +60,7 @@ const Navbar = () => {
   };
 
   // function for crop image 
-  const onChange = (e) => {
-    e.preventDefault();
-    let files;
-    if (e.dataTransfer) {
-      files = e.dataTransfer.files;
-    } else if (e.target) {
-      files = e.target.files;
-    }
-    const reader = new FileReader();
-    reader.onload = () => {
-      setImage(reader.result);
-    };
-    reader.readAsDataURL(files[0]);
-  };
+
 
   const getCropData = () => {
     if (typeof cropperRef.current?.cropper !== "undefined") {
@@ -95,6 +82,26 @@ const Navbar = () => {
   };
 
   // style end modal ==========
+ 
+// function for image upload 
+  const handleImageUpload = (e) => {
+    e.preventDefault();
+    let files = e.target.files ;
+    // if (e.dataTransfer) {
+    //   files = e.dataTransfer.files;
+    // } else if (e.target) {
+    //   files = e.target.files;
+    // }
+    const reader = new FileReader();
+    reader.onload = () => {
+      setImage(reader.result);
+    };
+    reader.readAsDataURL(files[0]);
+  };
+
+
+
+
 
   return (
     <div className="min-h-screen bg-gray-600 w-36 rounded-r-xl">
@@ -155,12 +162,21 @@ const Navbar = () => {
       >
         <Box sx={style}>
           <Typography id="modal-modal-title" >
-            Profile Upload
+          <div className="box" style={{ width: "50%", float: "right" }}>
+          <h1>Preview</h1>
+          <div
+            className="img-preview"
+            style={{ width: "100%", float: "left", height: "300px" }}
+          />
+        </div>
           </Typography>
           <Typography id="modal-modal-description" >
+
+          <input onChange={handleImageUpload} type="file" />  
+            <h1>Image Upload</h1>
           <Cropper
           ref={cropperRef}
-          style={{ height: 400, width: "100%" }}
+          style={{ height: 300, width: "100%" }}
           zoomTo={0.5}
           initialAspectRatio={1}
           preview=".img-preview"
@@ -174,15 +190,8 @@ const Navbar = () => {
           checkOrientation={false} // https://github.com/fengyuanchen/cropperjs/issues/671
           guides={true}
         />
-
-
-<div className="box" style={{ width: "50%", float: "right" }}>
-          <h1>Preview</h1>
-          <div
-            className="img-preview"
-            style={{ width: "100%", float: "left", height: "300px" }}
-          />
-        </div>
+        {/* <Button onClick={getCropData} btnName='Upload' />  */}
+        <button className="px-5 py-1 mt-2 font-bold bg-gray-600 rounded-md text-yellow-50" onClick={getCropData}>Upload</button>
           </Typography>
         </Box>
       </Modal>
