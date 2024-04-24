@@ -116,7 +116,7 @@ const Navbar = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-600 w-36 rounded-r-xl">
+    <div className="min-h-screen bg-gray-600  w-36 rounded-r-xl">
       <div onClick={handleOpen} className="cursor-pointer pt-9">
         <Image className="mx-auto" imgSrc={userInfo.photoURL} />
       </div>

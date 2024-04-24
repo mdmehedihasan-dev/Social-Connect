@@ -10,6 +10,10 @@ export default {
     extend: {
       colors:{
         "primary":"#5F35F5"
+      },
+      width: {
+        'box': '400px',
+        'small':'340px'
       }
     },
   },

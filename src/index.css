@@ -50,3 +50,42 @@
     overflow: hidden;
   }
   
+  /* scrollbar */
+::-webkit-scrollbar {
+	width: 2px;
+}
+
+::-webkit-scrollbar-track {
+	background: #555;
+}
+
+::-webkit-scrollbar-thumb {
+	background: #121212;
+	border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+	background: #242424;
+}
+
+  .box-container{
+    border: 1px solid green;
+    overflow-y: scroll;
+    box-shadow: 1px 0px 14px 2px rgba(0,0,0,0.75);
+    
+    
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
