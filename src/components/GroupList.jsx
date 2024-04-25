@@ -1,16 +1,16 @@
 import { useState } from "react";
 import { BsThreeDotsVertical } from "react-icons/bs";
 const GroupList = () => {
-  let [show, setShow] = useState(false);
+  let [show, setShow] = useState(true);
   return (
 
     
 
 
-    <div className="h-auto p-2 rounded-md max-h-80 box-container sm:w-small lg:w-box">
+    <div className="h-auto p-2 bg-white rounded-md dark:bg-black max-h-80 box-container sm:w-small lg:w-box">
       {/* group header  */}
 
-      <div className="sticky right-0 flex items-center justify-between w-full pb-4 -top-2 ">
+      <div className="sticky right-0 flex items-center justify-between w-full pb-4 bg-white dark:bg-black -top-2 ">
         <h2 className="font-mono text-2xl">Groups </h2>
         <BsThreeDotsVertical onClick={() => setShow(!show)} />
       </div>

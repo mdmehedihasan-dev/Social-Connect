@@ -2,13 +2,13 @@
 import { useState } from "react";
 import { BsThreeDotsVertical } from "react-icons/bs";
 const Friends = () => {
-    let [show, setShow] = useState(false)
+    let [show, setShow] = useState(true)
   return (
     <div className="h-auto p-2 rounded-md max-h-80 box-container w-small lg:w-box">
      {/* friends header  */}
      
 
-      <div className="sticky left-0 z-0 flex items-center justify-between pb-4 -top-2 ">
+      <div className="sticky left-0 z-0 flex items-center justify-between pb-4 bg-white dark:bg-black -top-2 ">
         <h2 className="font-mono text-2xl">Friends </h2>
         <div onClick={()=>setShow(!show)} >
                <BsThreeDotsVertical/>
