@@ -1,157 +1,72 @@
-import { useState } from "react"
-import { BsThreeDotsVertical } from "react-icons/bs"
-
-
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useEffect, useState } from "react";
+import { BsThreeDotsVertical } from "react-icons/bs";
+import { getDatabase, ref, onValue } from "firebase/database";
+import { useSelector } from "react-redux";
 
 const FriendRequest = () => {
-    let [show, setShow] = useState(true)
+  const db = getDatabase();  
+  let [show, setShow] = useState(true);
+  let [requestList, setRequestList] = useState([]);
+  let userInfo = useSelector((state)=>state.user.value)
 
+  useEffect(() => {
+    const friendRequestRef = ref(db, 'friendRequest'); 
+    onValue(friendRequestRef, (snapshot) => {
+      let arr = [];
+      snapshot.forEach((item) => {
+        if(userInfo.uid === item.val().whoreceiveid){
+          arr.push({
+            ...item.val(),
+          });
+        }
+       
+      });
+      setRequestList(arr);
+    });
+  }, []);
   return (
     <div className="h-auto p-2 rounded-md max-h-80 box-container w-small lg:w-box">
-     {/* friends header  */}
-     
-
-      <div className="sticky dark:bg-black bg-white left-0 flex items-center justify-between pb-4 -top-2 ">
+      {/* friends header  */}
+      <div className="sticky left-0 flex items-center justify-between pb-4 bg-white dark:bg-black -top-2 ">
         <h2 className="font-mono text-2xl">Friend Request </h2>
-        <div onClick={()=>setShow(!show)} >
-               <BsThreeDotsVertical/>
+        <div className="cursor-pointer" onClick={() => setShow(!show)}>
+          <BsThreeDotsVertical />
         </div>
-     </div>
-    
+      </div>
       {/* friends name  */}
       {show && (
         <div>
-        <div className="flex items-center justify-between mb-4 group">
-          <div className="flex items-center space-x-4">
-          <div >
-              <img className="w-10 h-10 rounded-full" src="../../public/Ellipse 1 (1).png" alt="" />
-          </div>
-          <div>
-              <h1 className="text-lg font-bold">Big Kahuna Burger Ltd.</h1>
-          </div>
-          </div>
-          <div>
-              <button className="px-2 text-white bg-gray-600 rounded-md">Accept</button>
-          </div>
-        </div>
-  
-        <div className="flex items-center justify-between mb-4 group">
-          <div className="flex items-center space-x-4">
-          <div >
-              <img className="w-10 h-10 rounded-full" src="../../public/Ellipse 1 (1).png" alt="" />
-          </div>
-          <div>
-              <h1 className="text-lg font-bold">Big Kahuna Burger Ltd.</h1>
-          </div>
-          </div>
-          <div>
-              <button className="px-2 text-white bg-gray-600 rounded-md">Accept</button>
-          </div>
-        </div>
-  
-        <div className="flex items-center justify-between mb-4 group">
-          <div className="flex items-center space-x-4">
-          <div >
-              <img className="w-10 h-10 rounded-full" src="../../public/Ellipse 1 (1).png" alt="" />
-          </div>
-          <div>
-              <h1 className="text-lg font-bold">Big Kahuna Burger Ltd.</h1>
-          </div>
-          </div>
-          <div>
-              <button className="px-2 text-white bg-gray-600 rounded-md">Accept</button>
-          </div>
-        </div>
-  
-        <div className="flex items-center justify-between mb-4 group">
-          <div className="flex items-center space-x-4">
-          <div >
-              <img className="w-10 h-10 rounded-full" src="../../public/Ellipse 1 (1).png" alt="" />
-          </div>
-          <div>
-              <h1 className="text-lg font-bold">Big Kahuna Burger Ltd.</h1>
-          </div>
-          </div>
-          <div>
-              <button className="px-2 text-white bg-gray-600 rounded-md">Accept</button>
-          </div>
-        </div>
-  
-        <div className="flex items-center justify-between mb-4 group">
-          <div className="flex items-center space-x-4">
-          <div >
-              <img className="w-10 h-10 rounded-full" src="../../public/Ellipse 1 (1).png" alt="" />
-          </div>
-          <div>
-              <h1 className="text-lg font-bold">Big Kahuna Burger Ltd.</h1>
-          </div>
-          </div>
-          <div>
-              <button className="px-2 text-white bg-gray-600 rounded-md">Accept</button>
-          </div>
-        </div>
-  
-        <div className="flex items-center justify-between mb-4 group">
-          <div className="flex items-center space-x-4">
-          <div >
-              <img className="w-10 h-10 rounded-full" src="../../public/Ellipse 1 (1).png" alt="" />
-          </div>
-          <div>
-              <h1 className="text-lg font-bold">Big Kahuna Burger Ltd.</h1>
-          </div>
-          </div>
-          <div>
-              <button className="px-2 text-white bg-gray-600 rounded-md">Accept</button>
-          </div>
-        </div>
-  
-        <div className="flex items-center justify-between mb-4 group">
-          <div className="flex items-center space-x-4">
-          <div >
-              <img className="w-10 h-10 rounded-full" src="../../public/Ellipse 1 (1).png" alt="" />
-          </div>
-          <div>
-              <h1 className="text-lg font-bold">Big Kahuna Burger Ltd.</h1>
-          </div>
-          </div>
-          <div>
-              <button className="px-2 text-white bg-gray-600 rounded-md">Accept</button>
-          </div>
-        </div>
-  
-        <div className="flex items-center justify-between mb-4 group">
-          <div className="flex items-center space-x-4">
-          <div >
-              <img className="w-10 h-10 rounded-full" src="../../public/Ellipse 1 (1).png" alt="" />
-          </div>
-          <div>
-              <h1 className="text-lg font-bold">Big Kahuna Burger Ltd.</h1>
-          </div>
-          </div>
-          <div>
-              <button className="px-2 text-white bg-gray-600 rounded-md">Accept</button>
-          </div>
-        </div>
-  
-        <div className="flex items-center justify-between mb-4 group">
-          <div className="flex items-center space-x-4">
-          <div >
-              <img className="w-10 h-10 rounded-full" src="../../public/Ellipse 1 (1).png" alt="" />
-          </div>
-          <div>
-              <h1 className="text-lg font-bold">Big Kahuna Burger Ltd.</h1>
-          </div>
-          </div>
-          <div>
-              <button className="px-2 text-white bg-gray-600 rounded-md">Accept</button>
-          </div>
-        </div>
-  
-        
+          {requestList.map((item, i) => (
+              <div
+              key={i}
+              className="flex items-center justify-between mb-4 group"
+            >
+              <div className="flex items-center space-x-4">
+                <div>
+                  <img
+                    className="w-10 h-10 rounded-full"
+                    src="../../public/Ellipse 1 (1).png"
+                    alt=""
+                  />
+                </div>
+                <div>
+                  <h1 className="text-lg font-bold">{item.whosendname}</h1>
+                </div>
+              </div>
+              <div>
+                <button className="px-2 text-white bg-gray-600 rounded-md">
+                  Accept
+                </button>
+              </div>
+            </div>
+          )
+          
+          )}
         </div>
       )}
     </div>
-  )
-}
+  );
+};
 
-export default FriendRequest
+export default FriendRequest;

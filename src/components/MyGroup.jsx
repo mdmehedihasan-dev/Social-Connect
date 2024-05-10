@@ -8,9 +8,9 @@ const MyGroup = () => {
     <div className="h-auto p-2 rounded-md max-h-80 box-container w-small lg:w-box">
     {/* MyGroup header  */}
 
-    <div className="sticky left-0 flex items-center justify-between pb-4 dark:bg-black bg-white -top-2 ">
+    <div className="sticky left-0 flex items-center justify-between pb-4 bg-white dark:bg-black -top-2 ">
       <h2 className="font-mono text-2xl">My Group </h2>
-      <BsThreeDotsVertical onClick={() => setShow(!show)} />
+      <BsThreeDotsVertical className="cursor-pointer" onClick={() => setShow(!show)} />
     </div>
 
     {/* MyGroup names  */}

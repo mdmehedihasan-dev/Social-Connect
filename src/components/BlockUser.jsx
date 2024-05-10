@@ -9,9 +9,9 @@ const BlockUser = () => {
      {/* friends header  */}
      
 
-      <div className="sticky dark:bg-black bg-white left-0 flex items-center justify-between pb-4 -top-2 ">
+      <div className="sticky left-0 flex items-center justify-between pb-4 bg-white dark:bg-black -top-2 ">
         <h2 className="font-mono text-2xl">Block User List </h2>
-        <div onClick={()=>setShow(!show)} >
+        <div className="cursor-pointer" onClick={()=>setShow(!show)} >
                <BsThreeDotsVertical/>
         </div>
      </div>
