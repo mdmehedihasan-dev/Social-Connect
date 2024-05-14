@@ -8,6 +8,7 @@ const UserList = () => {
   const db = getDatabase();
   let [show, setShow] = useState(true);
   let [userList, setUserList] = useState([]);
+  let [friendList, setFriendList] = useState([]);
   let userInfo = useSelector((state) => state.user.value);
 
   useEffect(() => {
@@ -25,6 +26,18 @@ const UserList = () => {
         }
       });
       setUserList(arr);
+    });
+  }, []);
+
+
+  useEffect(() => {
+    const userRef = ref(db, "friendRequest");
+    onValue(userRef, (snapshot) => {
+      const arr = [];
+      snapshot.forEach((item) => {
+          arr.push(item.val().whosendid + item.val().whoreceiveid);
+      });
+      setFriendList(arr);
     });
   }, []);
 
@@ -71,12 +84,29 @@ const UserList = () => {
                 </div>
               </div>
               <div>
-                <button
+
+                {
+                  friendList.includes(item.userId + userInfo.uid) ||
+                  friendList.includes(userInfo.uid + item.userId )
+                  ?(
+                    <button
+                    
+                    className="px-2 text-white bg-gray-600 rounded-md disabled:text-slate-500"
+                  >
+                    pending
+                  </button>
+                  )
+                  :
+                  <button
                   onClick={() => handleFriendRequest(item)}
                   className="px-2 text-white bg-gray-600 rounded-md"
                 >
-                  +
+                  Add Request
                 </button>
+                }
+
+                
+                
               </div>
             </div>
           ))}

@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react";
 import { BsThreeDotsVertical } from "react-icons/bs";
-import { getDatabase, ref, onValue } from "firebase/database";
+import { getDatabase, ref, onValue,set, push, remove  } from "firebase/database";
 import { useSelector } from "react-redux";
 
 const FriendRequest = () => {
@@ -15,9 +15,9 @@ const FriendRequest = () => {
     onValue(friendRequestRef, (snapshot) => {
       let arr = [];
       snapshot.forEach((item) => {
-        if(userInfo.uid === item.val().whoreceiveid){
+        if(userInfo.uid == item.val().whoreceiveid){
           arr.push({
-            ...item.val(),
+            ...item.val(), id:item.key
           });
         }
        
@@ -25,6 +25,25 @@ const FriendRequest = () => {
       setRequestList(arr);
     });
   }, []);
+
+  // friend request accept 
+  const handleRequestAccept =(item)=>{
+    console.log(item)
+    set(push(ref(db, 'friends')), {
+      ...item
+    }).then(()=>{
+      remove(ref(db,'friendRequest/'+ item.id))
+    })
+  }
+
+
+
+
+
+
+
+
+  
   return (
     <div className="h-auto p-2 rounded-md max-h-80 box-container w-small lg:w-box">
       {/* friends header  */}
@@ -55,7 +74,7 @@ const FriendRequest = () => {
                 </div>
               </div>
               <div>
-                <button className="px-2 text-white bg-gray-600 rounded-md">
+                <button onClick={()=>handleRequestAccept(item)} className="px-2 text-white bg-gray-600 rounded-md">
                   Accept
                 </button>
               </div>
