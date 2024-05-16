@@ -9,6 +9,7 @@ const UserList = () => {
   let [show, setShow] = useState(true);
   let [userList, setUserList] = useState([]);
   let [friendList, setFriendList] = useState([]);
+   let [friends, setFriends] = useState([]);
   let userInfo = useSelector((state) => state.user.value);
 
   useEffect(() => {
@@ -41,7 +42,21 @@ const UserList = () => {
     });
   }, []);
 
-  // function for dend request
+
+  useEffect(() => {
+    const userRef = ref(db, "friends");
+    onValue(userRef, (snapshot) => {
+      const arr = [];
+      snapshot.forEach((item) => {
+          arr.push(item.val().whosendid + item.val().whoreceiveid);
+      });
+      setFriends(arr);
+    });
+  }, []);
+
+
+
+  // function for friend request
   let handleFriendRequest = (item) => {
     console.log(item);
     set(push(ref(db, "friendRequest/")), {
@@ -91,17 +106,27 @@ const UserList = () => {
                   ?(
                     <button
                     
-                    className="px-2 text-white bg-gray-600 rounded-md disabled:text-slate-500"
+                    className="px-2 text-white bg-gray-300 rounded-md disabled:text-slate-500"
                   >
                     pending
                   </button>
                   )
-                  :
+                  : 
+                  friends.includes(item.userId + userInfo.uid) ||
+                  friends.includes(userInfo.uid + item.userId )
+                  ?(
+                    <button
+                    
+                    className="px-2 text-white bg-green-600 rounded-md disabled:text-slate-500"
+                  >
+                    Friends
+                  </button>
+                  ) :
                   <button
                   onClick={() => handleFriendRequest(item)}
-                  className="px-2 text-white bg-gray-600 rounded-md"
+                  className="px-2 text-white bg-blue-600 rounded-md"
                 >
-                  Add Request
+                  Add Friend
                 </button>
                 }
 

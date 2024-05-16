@@ -60,8 +60,8 @@ const Friends = () => {
               </div>
             </div>
             <div>
-              <button className="px-2 text-white bg-gray-600 rounded-md">
-                Join
+              <button className="px-2 text-white bg-red-700 rounded-md">
+                Block
               </button>
             </div>
           </div>
