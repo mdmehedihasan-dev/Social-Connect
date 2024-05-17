@@ -1,4 +1,4 @@
-import { getDatabase, onValue, ref } from "firebase/database";
+import { getDatabase, onValue, push, ref, remove, set } from "firebase/database";
 import { useEffect, useState } from "react";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { useSelector } from "react-redux";
@@ -17,12 +17,36 @@ const Friends = () => {
           item.val().whosendid == userInfo.uid ||
           item.val().whoreceiveid == userInfo.uid
         ) {
-          arr.push(item.val());
+          arr.push({...item.val(),fid:item.key});
         }
       });
       setFriendList(arr);
     });
   }, []);
+
+
+  let handleBlock = (item) =>{
+    if(userInfo.uid == item.whosendid){
+      set(push(ref(db,"block/")),{
+        blockbyname:userInfo.displayName,
+        blockbyid:userInfo.uid,
+        blockid:item.whoreceiveid,
+        blockname:item.whoreceivename
+      }).then(()=>{
+        remove(ref(db,"friends/"+item.fid))
+      })
+    }else{
+      set(push(ref(db,"block/")),{
+        blockbyname:userInfo.displayName,
+        blockbyid:userInfo.uid,
+        blockid:item.whosendid,
+        blockname:item.whosendname
+      }).then(()=>{
+        remove(ref(db,"friends/"+item.fid))
+      })
+    }
+    
+  }
 
   return (
     <div className="h-auto p-2 rounded-md max-h-80 box-container w-small lg:w-box">
@@ -60,7 +84,7 @@ const Friends = () => {
               </div>
             </div>
             <div>
-              <button className="px-2 text-white bg-red-700 rounded-md">
+              <button onClick={()=>handleBlock(item)} className="px-2 text-white bg-red-700 rounded-md">
                 Block
               </button>
             </div>
