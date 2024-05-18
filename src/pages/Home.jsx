@@ -8,19 +8,19 @@ import UserList from "../components/UserList"
 
 const Home = () => {
   return (
-    <div className="flex flex-wrap justify-center ">
-      <div className="px-2 py-10 space-y-5 lg:py-5 ">
+    //  flex flex-wrap justify-center mt-20 sm:mt-0 
+      //  px-2 py-10 space-y-5 lg:py-5   
+    <div className="flex flex-wrap justify-center gap-5">
+      
      <GroupList/>
      <FriendRequest/>
-    </div>
-    <div className="px-2 py-10 space-y-5 lg:py-5 ">
+  
       <Friends/>
     <MyGroup/>
-    </div>
-    <div className="px-2 py-10 space-y-5 lg:py-5 ">
+   
      <UserList/>
      <BlockUser/>
-    </div>
+ 
     </div>
   )
 }

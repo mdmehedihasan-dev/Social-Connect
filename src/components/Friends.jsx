@@ -1,12 +1,26 @@
 import { getDatabase, onValue, push, ref, remove, set } from "firebase/database";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { BsThreeDotsVertical } from "react-icons/bs";
+import { GiThreeFriends } from "react-icons/gi";
 import { useSelector } from "react-redux";
 const Friends = () => {
-  let [show, setShow] = useState(true);
+  let [show, setShow] = useState(false);
   let [friendList, setFriendList] = useState([]);
   const db = getDatabase();
   let userInfo = useSelector((state) => state.user.value);
+
+  let dropdownRef  = useRef()
+
+  useEffect(()=>{
+   document.body.addEventListener("click",(e)=>{
+    console.log(dropdownRef.current)
+    if(dropdownRef.current.contains(e.target)){
+      setShow(true)
+    }else{
+      setShow(false)
+    }
+   }) 
+  },[])
 
   useEffect(() => {
     const friendRef = ref(db, "friends/");
@@ -49,18 +63,22 @@ const Friends = () => {
   }
 
   return (
-    <div className="h-auto p-2 rounded-md max-h-80 box-container w-small lg:w-box">
+    <div>
+
+      <div  ref={dropdownRef} className="flex items-center justify-center w-16 h-16 text-4xl bg-blue-600 rounded-full cursor-pointer">  <GiThreeFriends/> </div>
+      {show && (
+      <div className="h-auto p-2 rounded-md max-h-80 box-container w-small lg:w-box">
       {/* friends header  */}
 
       <div className="sticky left-0 z-0 flex items-center justify-between pb-4 bg-white dark:bg-black -top-2 ">
         <h2 className="font-mono text-2xl">Friends </h2>
-        <div className="cursor-pointer" onClick={() => setShow(!show)}>
+        <div className="cursor-pointer">
           <BsThreeDotsVertical />
         </div>
       </div>
 
       {/* friends name  */}
-      {show && (
+     
         <div>
           {friendList.map((item, i) => (
             <div
@@ -93,7 +111,12 @@ const Friends = () => {
             
           )}
         </div>
+    </div>
       )}
+
+
+
+
     </div>
   );
 };
