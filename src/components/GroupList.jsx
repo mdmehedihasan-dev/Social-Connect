@@ -17,14 +17,14 @@ const GroupList = () => {
    }) 
   },[])
   return (
-    <div>
+    <div className="pt-5">
       <div
         ref={dropdownRef}
-        className="flex items-center justify-center w-16 h-16 text-4xl text-center bg-[#1e80c1] rounded-full cursor-pointer"
+        className="flex relative items-center justify-center w-10 h-10 md:w-16 md:h-16 text-xl md:text-4xl text-center bg-[#1e80c1] rounded-full cursor-pointer"
       > <MdGroups/> </div>
 
         {show && (
-      <div className="h-auto p-2 bg-white rounded-md dark:bg-black max-h-80 box-container sm:w-small lg:w-box">
+      <div className="absolute h-auto p-2 bg-white rounded-md top-24 left-7 sm:left-[172px] dark:bg-black max-h-80 box-container sm:w-small lg:w-box">
           <div>
             <div className="sticky right-0 flex items-center justify-between w-full pb-4 bg-white dark:bg-black -top-2 ">
               <h2 className="font-mono text-2xl ">Groups </h2>
