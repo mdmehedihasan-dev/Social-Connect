@@ -21,10 +21,12 @@ const MyGroup = () => {
     <div className="pt-5">
       <div
         ref={dropdownRef}
-        className="relative flex items-center justify-center w-10 h-10 text-xl bg-green-300 rounded-full cursor-pointer md:w-16 md:h-16 md:text-4xl"
+        className="relative text-white flex items-center justify-center w-10 h-10 text-xl bg-green-300 rounded-full cursor-pointer group md:w-16 md:h-16 md:text-4xl"
       >
         {" "}
         <MdGroupAdd />
+        <div className="absolute w-10 h-10 text-lg font-bold text-center  transition-opacity duration-300 bg-green-300 rounded-full opacity-0 md:w-16 md:h-16 group-hover:opacity-100">
+         My Groups </div>
       </div>
 
       {show && (

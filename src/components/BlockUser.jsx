@@ -43,9 +43,11 @@ const BlockUser = () => {
     <div className="pt-5">
       <div
         ref={dropdownRef}
-        className="relative flex items-center justify-center w-10 h-10 text-xl bg-red-600 rounded-full cursor-pointer md:w-16 md:h-16 md:text-4xl"
+        className="relative flex items-center justify-center w-10 h-10 text-xl text-white bg-red-600 rounded-full cursor-pointer group md:w-16 md:h-16 md:text-4xl"
       >
         <ImBlocked />
+        <div className="absolute w-10 h-10 text-lg font-bold text-center transition-opacity duration-300 bg-red-600 rounded-full opacity-0 md:w-16 md:h-16 group-hover:opacity-100">
+         Block Users </div>
       </div>
       {show && (
         <div className="absolute top-24 left-7 sm:left-[172px] h-auto p-2 rounded-md max-h-80 box-container w-small lg:w-box">
