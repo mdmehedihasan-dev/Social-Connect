@@ -22,6 +22,16 @@ const GroupList = () => {
       }
     });
   }, []);
+
+
+  let handleGroupName = ()=>{
+    console.log("ami")
+  }
+
+
+
+
+
   return (
     <div className="pt-5">
      
@@ -45,9 +55,6 @@ const GroupList = () => {
                 onClick={openModal}
                 className="cursor-pointer"
               /> 
-          
-              
-              
             </div>
             <div className="flex items-center justify-between mb-4 group">
               <div className="flex items-center space-x-4">
@@ -73,8 +80,12 @@ const GroupList = () => {
       )}
 
       <Modal isOpen={isModalOpen} onClose={closeModal}>
-        <h2 className="text-xl font-bold">Modal Title</h2>
-        <p className="mt-4">This is the modal content.</p>
+        <h2 className="mb-2 text-xl font-bold">Group Name</h2>
+
+        <div>
+          <input type="text" /> <br />
+          <button onClick={handleGroupName} className="px-2 py-1 mt-2 font-bold text-white bg-green-600 ">Submit</button>
+        </div>
       </Modal>
     </div>
   );
