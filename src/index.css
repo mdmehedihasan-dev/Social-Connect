@@ -8,7 +8,7 @@
   }
   .active .icon{
     z-index: 2;
-    color: rgb(75 85 99);
+    color: #0866ff;
   }
    
   .active::after {
@@ -28,7 +28,7 @@
   .active::before {
     content: '';
     position: absolute;
-    background-color: rgb(75 85 99);
+    background-color: #0866ff;
     width: 8px;
     height: 60px;
     z-index: 1;

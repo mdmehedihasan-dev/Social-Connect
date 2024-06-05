@@ -44,7 +44,6 @@ const Login = () => {
 
   const handleChange = (e) => {
     setRegData({ ...regData, [e.target.id]: e.target.value });
-
     setRegErrorData({ ...regErrorData, [e.target.id]: "" });
   };
 

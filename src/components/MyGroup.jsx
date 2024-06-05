@@ -1,10 +1,17 @@
 import { useEffect, useRef, useState } from "react";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { MdGroupAdd } from "react-icons/md";
+import { getDatabase, ref, onValue } from "firebase/database";
+import { useSelector } from "react-redux";
+
 
 const MyGroup = () => {
+  const db = getDatabase();
+  let [groupList, setGroupList] = useState([]);
   let [show, setShow] = useState(false);
   let dropdownRef = useRef();
+  let userInfo = useSelector((state) => state.user.value);
+
 
   useEffect(() => {
     document.body.addEventListener("click", (e) => {
@@ -17,15 +24,29 @@ const MyGroup = () => {
     });
   }, []);
 
+  useEffect(()=>{
+    const groupRef = ref(db, 'group/');
+    onValue(groupRef, (snapshot) => {
+      let arr = []
+      snapshot.forEach((item)=>{
+        if(userInfo.uid == item.val().adminId){
+          arr.push(item.val())
+        }
+      })
+      // console.log(snapshot.val())
+      setGroupList(arr)
+    });
+  },[])
+
   return (
     <div className="pt-5">
       <div
         ref={dropdownRef}
-        className="relative text-white flex items-center justify-center w-10 h-10 text-xl bg-green-300 rounded-full cursor-pointer group md:w-16 md:h-16 md:text-4xl"
+        className="relative flex items-center justify-center w-10 h-10 text-xl text-white bg-green-300 rounded-full cursor-pointer group md:w-16 md:h-16 md:text-4xl"
       >
         {" "}
         <MdGroupAdd />
-        <div className="absolute w-10 h-10 text-lg font-bold text-center  transition-opacity duration-300 bg-green-300 rounded-full opacity-0 md:w-16 md:h-16 group-hover:opacity-100">
+        <div className="absolute w-10 h-10 text-lg font-bold text-center transition-opacity duration-300 bg-green-300 rounded-full opacity-0 md:w-16 md:h-16 group-hover:opacity-100">
          My Groups </div>
       </div>
 
@@ -40,186 +61,38 @@ const MyGroup = () => {
 
           {/* MyGroup names  */}
 
-          <div>
-            <div className="flex items-center justify-between mb-4 group">
-              <div className="flex items-center space-x-4">
-                <div>
-                  <img
-                    className="w-10 h-10 rounded-full"
-                    src="../../public/Ellipse 1 (1).png"
-                    alt=""
-                  />
-                </div>
-                <div>
-                  <h1 className="text-lg font-bold">Big Kahuna Burger Ltd.</h1>
-                </div>
-              </div>
-              <div>
-                <button className="px-2 text-white bg-gray-600 rounded-md">
-                  Join
-                </button>
-              </div>
-            </div>
+          <div className="">
 
-            <div className="flex items-center justify-between mb-4 group">
-              <div className="flex items-center space-x-4">
-                <div>
-                  <img
-                    className="w-10 h-10 rounded-full"
-                    src="../../public/Ellipse 1 (1).png"
-                    alt=""
-                  />
+            {
+              groupList.map((item,i)=>(
+                <div key={i} className="flex items-center justify-between mb-4 group">
+                <div className="flex items-center space-x-4">
+                  <div>
+                    <img
+                      className="w-10 h-10 rounded-full"
+                      src="../../public/Ellipse 1 (1).png"
+                      alt=""
+                    />
+                  </div>
+                  <div>
+                    <h1 className="text-lg font-bold">{item.groupname}</h1>
+                  </div>
                 </div>
                 <div>
-                  <h1 className="text-lg font-bold">Big Kahuna Burger Ltd.</h1>
+                  <button className="px-2 text-white bg-gray-600 rounded-md">
+                    Join
+                  </button>
                 </div>
               </div>
-              <div>
-                <button className="px-2 text-white bg-gray-600 rounded-md">
-                  Join
-                </button>
-              </div>
-            </div>
+              )
 
-            <div className="flex items-center justify-between mb-4 group">
-              <div className="flex items-center space-x-4">
-                <div>
-                  <img
-                    className="w-10 h-10 rounded-full"
-                    src="../../public/Ellipse 1 (1).png"
-                    alt=""
-                  />
-                </div>
-                <div>
-                  <h1 className="text-lg font-bold">Big Kahuna Burger Ltd.</h1>
-                </div>
-              </div>
-              <div>
-                <button className="px-2 text-white bg-gray-600 rounded-md">
-                  Join
-                </button>
-              </div>
-            </div>
+              )
+            }
 
-            <div className="flex items-center justify-between mb-4 group">
-              <div className="flex items-center space-x-4">
-                <div>
-                  <img
-                    className="w-10 h-10 rounded-full"
-                    src="../../public/Ellipse 1 (1).png"
-                    alt=""
-                  />
-                </div>
-                <div>
-                  <h1 className="text-lg font-bold">Big Kahuna Burger Ltd.</h1>
-                </div>
-              </div>
-              <div>
-                <button className="px-2 text-white bg-gray-600 rounded-md">
-                  Join
-                </button>
-              </div>
-            </div>
 
-            <div className="flex items-center justify-between mb-4 group">
-              <div className="flex items-center space-x-4">
-                <div>
-                  <img
-                    className="w-10 h-10 rounded-full"
-                    src="../../public/Ellipse 1 (1).png"
-                    alt=""
-                  />
-                </div>
-                <div>
-                  <h1 className="text-lg font-bold">Big Kahuna Burger Ltd.</h1>
-                </div>
-              </div>
-              <div>
-                <button className="px-2 text-white bg-gray-600 rounded-md">
-                  Join
-                </button>
-              </div>
-            </div>
+           
 
-            <div className="flex items-center justify-between mb-4 group">
-              <div className="flex items-center space-x-4">
-                <div>
-                  <img
-                    className="w-10 h-10 rounded-full"
-                    src="../../public/Ellipse 1 (1).png"
-                    alt=""
-                  />
-                </div>
-                <div>
-                  <h1 className="text-lg font-bold">Big Kahuna Burger Ltd.</h1>
-                </div>
-              </div>
-              <div>
-                <button className="px-2 text-white bg-gray-600 rounded-md">
-                  Join
-                </button>
-              </div>
-            </div>
-
-            <div className="flex items-center justify-between mb-4 group">
-              <div className="flex items-center space-x-4">
-                <div>
-                  <img
-                    className="w-10 h-10 rounded-full"
-                    src="../../public/Ellipse 1 (1).png"
-                    alt=""
-                  />
-                </div>
-                <div>
-                  <h1 className="text-lg font-bold">Big Kahuna Burger Ltd.</h1>
-                </div>
-              </div>
-              <div>
-                <button className="px-2 text-white bg-gray-600 rounded-md">
-                  Join
-                </button>
-              </div>
-            </div>
-
-            <div className="flex items-center justify-between mb-4 group">
-              <div className="flex items-center space-x-4">
-                <div>
-                  <img
-                    className="w-10 h-10 rounded-full"
-                    src="../../public/Ellipse 1 (1).png"
-                    alt=""
-                  />
-                </div>
-                <div>
-                  <h1 className="text-lg font-bold">Big Kahuna Burger Ltd.</h1>
-                </div>
-              </div>
-              <div>
-                <button className="px-2 text-white bg-gray-600 rounded-md">
-                  Join
-                </button>
-              </div>
-            </div>
-
-            <div className="flex items-center justify-between mb-4 group">
-              <div className="flex items-center space-x-4">
-                <div>
-                  <img
-                    className="w-10 h-10 rounded-full"
-                    src="../../public/Ellipse 1 (1).png"
-                    alt=""
-                  />
-                </div>
-                <div>
-                  <h1 className="text-lg font-bold">Big Kahuna Burger Ltd.</h1>
-                </div>
-              </div>
-              <div>
-                <button className="px-2 text-white bg-gray-600 rounded-md">
-                  Join
-                </button>
-              </div>
-            </div>
+           
           </div>
         </div>
       )}
