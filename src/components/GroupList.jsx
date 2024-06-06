@@ -2,9 +2,8 @@ import { useEffect, useRef, useState } from "react";
 import { MdGroups } from "react-icons/md";
 import Modal from "./Modal";
 import { IoCreate } from "react-icons/io5";
-import { getDatabase, push, ref, set,onValue} from "firebase/database";
+import { getDatabase, push, ref, set, onValue } from "firebase/database";
 import { useSelector } from "react-redux";
-
 
 const GroupList = () => {
   const db = getDatabase();
@@ -40,31 +39,30 @@ const GroupList = () => {
     setGroupName(null);
   };
 
-  useEffect(()=>{
-    const groupRef = ref(db, 'group/');
+  useEffect(() => {
+    const groupRef = ref(db, "group/");
     onValue(groupRef, (snapshot) => {
-      let arr = []
-      snapshot.forEach((item)=>{
-        if(userInfo.uid != item.val().adminId){
-          arr.push({...item.val(),gid:item.key})
+      let arr = [];
+      snapshot.forEach((item) => {
+        if (userInfo.uid != item.val().adminId) {
+          arr.push({ ...item.val(), gid: item.key });
         }
-      })
+      });
       // console.log(snapshot.val())
-      setGroupList(arr)
+      setGroupList(arr);
     });
-  },[])
+  }, []);
 
-  let handleJoinGroup = (item)=>{
-    set(push(ref(db, 'groupRequest/')), {
-      adminid:item.adminId,
-      adminname:item.adminname,
-      groupname:item.groupname,
+  let handleJoinGroup = (item) => {
+    set(push(ref(db, "groupRequest/")), {
+      adminid: item.adminId,
+      adminname: item.adminname,
+      groupname: item.groupname,
       groupid: item.gid,
-      userid:userInfo.uid,
-      username:userInfo.displayName,
-      
+      userid: userInfo.uid,
+      username: userInfo.displayName,
     });
-  }
+  };
 
   return (
     <div className="pt-5">
@@ -85,9 +83,11 @@ const GroupList = () => {
               <h2 className="font-mono text-2xl ">Groups </h2>
               <IoCreate onClick={openModal} className="cursor-pointer" />
             </div>
-            {
-              groupList.map((item,i)=>(
-                <div key={i} className="flex items-center justify-between mb-4 group">
+            {groupList.map((item, i) => (
+              <div
+                key={i}
+                className="flex items-center justify-between mb-4 group"
+              >
                 <div className="flex items-center space-x-4">
                   <div>
                     <img
@@ -102,16 +102,15 @@ const GroupList = () => {
                   </div>
                 </div>
                 <div>
-                  <button onClick={()=>handleJoinGroup(item)} className="px-2 text-white bg-gray-600 rounded-md">
+                  <button
+                    onClick={() => handleJoinGroup(item)}
+                    className="px-2 text-white bg-gray-600 rounded-md"
+                  >
                     Join
                   </button>
                 </div>
               </div>
-  
-              ))
-            }
-
-           
+            ))}
           </div>
         </div>
       )}

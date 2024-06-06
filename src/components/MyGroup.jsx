@@ -3,7 +3,7 @@ import { BsThreeDotsVertical } from "react-icons/bs";
 import { MdGroupAdd } from "react-icons/md";
 import { getDatabase, ref, onValue } from "firebase/database";
 import { useSelector } from "react-redux";
-
+import Modal from "./Modal";
 
 const MyGroup = () => {
   const db = getDatabase();
@@ -11,8 +11,9 @@ const MyGroup = () => {
   let [show, setShow] = useState(false);
   let dropdownRef = useRef();
   let userInfo = useSelector((state) => state.user.value);
-
-
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
   useEffect(() => {
     document.body.addEventListener("click", (e) => {
       console.log(dropdownRef.current);
@@ -24,19 +25,19 @@ const MyGroup = () => {
     });
   }, []);
 
-  useEffect(()=>{
-    const groupRef = ref(db, 'group/');
+  useEffect(() => {
+    const groupRef = ref(db, "group/");
     onValue(groupRef, (snapshot) => {
-      let arr = []
-      snapshot.forEach((item)=>{
-        if(userInfo.uid == item.val().adminId){
-          arr.push(item.val())
+      let arr = [];
+      snapshot.forEach((item) => {
+        if (userInfo.uid == item.val().adminId) {
+          arr.push(item.val());
         }
-      })
+      });
       // console.log(snapshot.val())
-      setGroupList(arr)
+      setGroupList(arr);
     });
-  },[])
+  }, []);
 
   return (
     <div className="pt-5">
@@ -47,7 +48,8 @@ const MyGroup = () => {
         {" "}
         <MdGroupAdd />
         <div className="absolute w-10 h-10 text-lg font-bold text-center transition-opacity duration-300 bg-green-300 rounded-full opacity-0 md:w-16 md:h-16 group-hover:opacity-100">
-         My Groups </div>
+          My Groups{" "}
+        </div>
       </div>
 
       {show && (
@@ -62,10 +64,11 @@ const MyGroup = () => {
           {/* MyGroup names  */}
 
           <div className="">
-
-            {
-              groupList.map((item,i)=>(
-                <div key={i} className="flex items-center justify-between mb-4 group">
+            {groupList.map((item, i) => (
+              <div
+                key={i}
+                className="flex items-center justify-between mb-4 group"
+              >
                 <div className="flex items-center space-x-4">
                   <div>
                     <img
@@ -79,23 +82,24 @@ const MyGroup = () => {
                   </div>
                 </div>
                 <div>
-                  <button className="px-2 text-white bg-gray-600 rounded-md">
-                    Join
+                  <button onClick={openModal} className="px-2 text-white bg-gray-600 rounded-md">
+                    Join Request
                   </button>
                 </div>
               </div>
-              )
-
-              )
-            }
-
-
-           
-
-           
+            ))}
           </div>
         </div>
       )}
+
+
+<Modal isOpen={isModalOpen} onClose={closeModal}>
+        <h2 className="mb-2 text-xl font-bold">Group Name</h2>
+
+        <div>
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repudiandae autem facilis consequuntur voluptatibus suscipit odit, iusto aperiam doloribus rerum ullam?
+        </div>
+      </Modal>
     </div>
   );
 };
