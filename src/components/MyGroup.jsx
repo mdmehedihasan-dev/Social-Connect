@@ -8,6 +8,8 @@ import Modal from "./Modal";
 const MyGroup = () => {
   const db = getDatabase();
   let [groupList, setGroupList] = useState([]);
+  let [groupRequestList, setGroupRequestList] = useState([]);
+
   let [show, setShow] = useState(false);
   let dropdownRef = useRef();
   let userInfo = useSelector((state) => state.user.value);
@@ -36,6 +38,18 @@ const MyGroup = () => {
       });
       // console.log(snapshot.val())
       setGroupList(arr);
+    });
+  }, []);
+
+  useEffect(() => {
+    const groupRequestRef = ref(db, "groupRequest/");
+    onValue(groupRequestRef, (snapshot) => {
+      let arr = [];
+      snapshot.forEach((item) => {
+        arr.push(item.val());
+      });
+      // console.log(snapshot.val())
+      setGroupRequestList(arr);
     });
   }, []);
 
@@ -82,7 +96,10 @@ const MyGroup = () => {
                   </div>
                 </div>
                 <div>
-                  <button onClick={openModal} className="px-2 text-white bg-gray-600 rounded-md">
+                  <button
+                    onClick={openModal}
+                    className="px-2 text-white bg-green-600 rounded-sm hover:bg-red-400"
+                  >
                     Join Request
                   </button>
                 </div>
@@ -92,13 +109,15 @@ const MyGroup = () => {
         </div>
       )}
 
-
-<Modal isOpen={isModalOpen} onClose={closeModal}>
-        <h2 className="mb-2 text-xl font-bold">Group Name</h2>
-
-        <div>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repudiandae autem facilis consequuntur voluptatibus suscipit odit, iusto aperiam doloribus rerum ullam?
-        </div>
+      <Modal isOpen={isModalOpen} onClose={closeModal}>
+        {groupRequestList.map((item, i) => (
+          <div key={i}>
+            <h2 className="mb-2 text-xl font-bold">{item.username}</h2>
+            <div>
+              {<h2 className="mb-2 text-lg font-semibold">{item.groupname}</h2>}
+            </div>
+          </div>
+        ))}
       </Modal>
     </div>
   );
