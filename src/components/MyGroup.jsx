@@ -14,8 +14,20 @@ const MyGroup = () => {
   let dropdownRef = useRef();
   let userInfo = useSelector((state) => state.user.value);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const openModal = () => setIsModalOpen(true);
+  const openModal = (info) =>{ setIsModalOpen(true)
+    const groupRequestRef = ref(db, "groupRequest/");
+    onValue(groupRequestRef, (snapshot) => {
+      let arr = [];
+      snapshot.forEach((item) => {
+        if(info.gid == item.val().groupid){
+          arr.push(item.val());
+        }
+      });
+      setGroupRequestList(arr);
+    });
+  };
   const closeModal = () => setIsModalOpen(false);
+
   useEffect(() => {
     document.body.addEventListener("click", (e) => {
       console.log(dropdownRef.current);
@@ -33,7 +45,7 @@ const MyGroup = () => {
       let arr = [];
       snapshot.forEach((item) => {
         if (userInfo.uid == item.val().adminId) {
-          arr.push(item.val());
+          arr.push({ ...item.val(), gid:item.key});
         }
       });
       // console.log(snapshot.val())
@@ -41,17 +53,7 @@ const MyGroup = () => {
     });
   }, []);
 
-  useEffect(() => {
-    const groupRequestRef = ref(db, "groupRequest/");
-    onValue(groupRequestRef, (snapshot) => {
-      let arr = [];
-      snapshot.forEach((item) => {
-        arr.push(item.val());
-      });
-      // console.log(snapshot.val())
-      setGroupRequestList(arr);
-    });
-  }, []);
+
 
   return (
     <div className="pt-5">
@@ -97,7 +99,7 @@ const MyGroup = () => {
                 </div>
                 <div>
                   <button
-                    onClick={openModal}
+                    onClick={()=>openModal(item)}
                     className="px-2 text-white bg-green-600 rounded-sm hover:bg-red-400"
                   >
                     Join Request
