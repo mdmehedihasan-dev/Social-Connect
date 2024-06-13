@@ -1,7 +1,14 @@
 import { useEffect, useRef, useState } from "react";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { MdGroupAdd } from "react-icons/md";
-import { getDatabase, ref, onValue } from "firebase/database";
+import {
+  getDatabase,
+  ref,
+  onValue,
+  push,
+  set,
+  remove,
+} from "firebase/database";
 import { useSelector } from "react-redux";
 import Modal from "./Modal";
 
@@ -9,24 +16,33 @@ const MyGroup = () => {
   const db = getDatabase();
   let [groupList, setGroupList] = useState([]);
   let [groupRequestList, setGroupRequestList] = useState([]);
+  let [members,setMembers] = useState([])
 
   let [show, setShow] = useState(false);
   let dropdownRef = useRef();
   let userInfo = useSelector((state) => state.user.value);
+
+  const openModal2 = () => {
+    setIsModalOpen2(true);
+  };
+
+  const [isModalOpen2, setIsModalOpen2] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const openModal = (info) =>{ setIsModalOpen(true)
+  const openModal = (info) => {
+    setIsModalOpen(true);
     const groupRequestRef = ref(db, "groupRequest/");
     onValue(groupRequestRef, (snapshot) => {
       let arr = [];
       snapshot.forEach((item) => {
-        if(info.gid == item.val().groupid){
-          arr.push(item.val());
+        if (info.gid == item.val().groupid) {
+          arr.push({ ...item.val(), grid: item.key });
         }
       });
       setGroupRequestList(arr);
     });
   };
   const closeModal = () => setIsModalOpen(false);
+  const closeModal2 = () => setIsModalOpen2(false);
 
   useEffect(() => {
     document.body.addEventListener("click", (e) => {
@@ -45,7 +61,7 @@ const MyGroup = () => {
       let arr = [];
       snapshot.forEach((item) => {
         if (userInfo.uid == item.val().adminId) {
-          arr.push({ ...item.val(), gid:item.key});
+          arr.push({ ...item.val(), gid: item.key });
         }
       });
       // console.log(snapshot.val())
@@ -53,7 +69,32 @@ const MyGroup = () => {
     });
   }, []);
 
+  let handleJoinRequst = (item) => {
+    set(push(ref(db, "groupmember")), {
+      ...item,
+    }).then(() => {
+      remove(ref(db, "groupRequest/" + item.grid));
+    });
+  };
 
+  let handleDeleteRequst = (item) => {
+    remove(ref(db, "groupRequest/" + item.grid));
+  };
+
+  // ======================
+  useEffect(()=>{
+    const memberRef = ref(db, "groupmember");
+    onValue(memberRef, (snapshot) => {
+      let arr = [];
+      snapshot.forEach((item) => {
+        // if(){
+
+        // }
+      arr.push(item.val());
+      });
+      setMembers(arr);
+    });
+  },[])
 
   return (
     <div className="pt-5">
@@ -99,10 +140,17 @@ const MyGroup = () => {
                 </div>
                 <div>
                   <button
-                    onClick={()=>openModal(item)}
+                    onClick={() => openModal(item)}
                     className="px-2 text-white bg-green-600 rounded-sm hover:bg-red-400"
                   >
-                    Join Request
+                    Request
+                  </button>
+
+                  <button
+                    onClick={() => openModal2(item)}
+                    className="px-2 text-white bg-blue-600 rounded-sm hover:bg-red-400"
+                  >
+                    Members
                   </button>
                 </div>
               </div>
@@ -113,13 +161,39 @@ const MyGroup = () => {
 
       <Modal isOpen={isModalOpen} onClose={closeModal}>
         {groupRequestList.map((item, i) => (
-          <div key={i}>
-            <h2 className="mb-2 text-xl font-bold">{item.username}</h2>
+          <div className="font-mono text-left " key={i}>
+            <h2 className="text-lg font-bold">{item.username}</h2>
             <div>
-              {<h2 className="mb-2 text-lg font-semibold">{item.groupname}</h2>}
+              {
+                <h2 className="mb-2 font-semibold text-green-500 text-md">{`${item.username} wants to join ${item.groupname}`}</h2>
+              }
+              <div className="flex gap-x-2">
+                <button
+                  onClick={() => handleJoinRequst(item)}
+                  className="px-4 font-bold text-white bg-blue-500 border-b-4 border-blue-700 rounded ppy1 hover:bg-blue-400 hover:border-blue-500"
+                >
+                  Accept
+                </button>
+                <button
+                  onClick={() => handleDeleteRequst(item)}
+                  className="px-4 font-bold text-white bg-red-500 border-b-4 border-red-700 rounded hover:bg-red-400 hover:border-red-500"
+                >
+                  Delete
+                </button>
+              </div>
             </div>
           </div>
         ))}
+      </Modal>
+
+      <Modal isOpen={isModalOpen2} onClose={closeModal2}>
+         {
+          members.map((item,i)=>(
+            <div key={i}>
+               <h1>{item.username}</h1>
+            </div>
+          ))
+         }
       </Modal>
     </div>
   );
