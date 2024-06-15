@@ -4,6 +4,7 @@ import { BsThreeDotsVertical } from "react-icons/bs";
 import { getDatabase, ref, onValue, set, push } from "firebase/database";
 import { useSelector } from "react-redux";
 import { FaUsersViewfinder } from "react-icons/fa6";
+import ProfilePhoto from "./ProfilePhoto";
 
 const UserList = () => {
   const db = getDatabase();
@@ -119,6 +120,7 @@ const UserList = () => {
               >
                 <div className="flex items-center space-x-4">
                   <div>
+                  {/* <ProfilePhoto  imgId={item.id} /> */}
                     <img
                       className="w-10 h-10 rounded-full"
                       src="../../public/Ellipse 1 (1).png"

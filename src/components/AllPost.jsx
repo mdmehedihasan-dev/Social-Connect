@@ -1,7 +1,8 @@
 
 const AllPost = () => {
   return (
-    <div>AllPost</div>
+    <div>
+    </div>
   )
 }
 

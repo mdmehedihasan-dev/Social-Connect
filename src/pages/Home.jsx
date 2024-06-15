@@ -4,7 +4,7 @@ import Friends from "../components/Friends";
 import GroupList from "../components/GroupList";
 import MyGroup from "../components/MyGroup";
 import UserList from "../components/UserList";
-import MyPost from "../components/MyPost";
+import Post from "../components/Post";
 
 const Home = () => {
   return (
@@ -18,7 +18,7 @@ const Home = () => {
         <BlockUser />
       </div>
       <div className="py-5 pr-0 lg:pr-5">
-        <MyPost/>
+        <Post/>
       </div>
     </div>
   );

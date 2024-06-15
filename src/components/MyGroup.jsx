@@ -34,7 +34,7 @@ const MyGroup = () => {
     onValue(groupRequestRef, (snapshot) => {
       let arr = [];
       snapshot.forEach((item) => {
-        if (info.gid == item.val().groupid) {
+        if (info.gId == item.val().groupid) {
           arr.push({ ...item.val(), grid: item.key });
         }
       });
@@ -61,7 +61,7 @@ const MyGroup = () => {
       let arr = [];
       snapshot.forEach((item) => {
         if (userInfo.uid == item.val().adminId) {
-          arr.push({ ...item.val(), gid: item.key });
+          arr.push({ ...item.val(), gId: item.key });
         }
       });
       // console.log(snapshot.val())
@@ -83,14 +83,13 @@ const MyGroup = () => {
 
   // ======================
   useEffect(()=>{
-    const memberRef = ref(db, "groupmember");
+    const memberRef = ref(db, "groupmember/");
     onValue(memberRef, (snapshot) => {
       let arr = [];
       snapshot.forEach((item) => {
-        // if(){
-
-        // }
-      arr.push(item.val());
+        if (item.val().gId == item.val().groupid) {
+          arr.push(item.val());
+        } 
       });
       setMembers(arr);
     });
@@ -102,7 +101,6 @@ const MyGroup = () => {
         ref={dropdownRef}
         className="relative flex items-center justify-center w-10 h-10 text-xl text-white bg-green-300 rounded-full cursor-pointer group md:w-16 md:h-16 md:text-4xl"
       >
-        {" "}
         <MdGroupAdd />
         <div className="absolute w-10 h-10 text-lg font-bold text-center transition-opacity duration-300 bg-green-300 rounded-full opacity-0 md:w-16 md:h-16 group-hover:opacity-100">
           My Groups{" "}
@@ -191,6 +189,7 @@ const MyGroup = () => {
           members.map((item,i)=>(
             <div key={i}>
                <h1>{item.username}</h1>
+               <p>{item.groupname}</p>
             </div>
           ))
          }
