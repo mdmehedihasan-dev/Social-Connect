@@ -5,6 +5,7 @@ import GroupList from "../components/GroupList";
 import MyGroup from "../components/MyGroup";
 import UserList from "../components/UserList";
 import Post from "../components/Post";
+import MsgFriend from "./MsgFriend";
 
 const Home = () => {
   return (
@@ -16,6 +17,7 @@ const Home = () => {
         <MyGroup />
         <UserList />
         <BlockUser />
+        <MsgFriend/>
       </div>
       <div className="py-5 pr-0 lg:pr-5">
         <Post/>

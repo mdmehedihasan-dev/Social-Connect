@@ -7,9 +7,12 @@ import {
   set,
 } from "firebase/database";
 import { useEffect, useState } from "react";
+import { useSelector,useDispatch } from "react-redux";
+import { activeChatUser } from "../slice/activeChatSlice";
 
-import { useSelector } from "react-redux";
 const MsgFriend = () => {
+  const dispatch = useDispatch()
+
   let [friendList, setFriendList] = useState([]);
   const db = getDatabase();
   let userInfo = useSelector((state) => state.user.value);
@@ -52,6 +55,20 @@ const MsgFriend = () => {
     }
   };
 
+  let handleActiveChat = (item)=>{
+   if(userInfo.uid == item.whosendid){
+    dispatch(activeChatUser({
+      activeuserid:item.whoreceiveid,
+      name:item.whoreceivename
+    }))
+   }else{
+    dispatch(activeChatUser({
+      activeuserid:item.whosendid,
+      name:item.whosendname
+    }))
+   }
+  }
+
   return (
     <div className="pt-5">
       <div className="p-2 rounded-md h-80 box-container w-small lg:w-box">
@@ -73,7 +90,7 @@ const MsgFriend = () => {
                     alt=""
                   />
                 </div>
-                <div>
+                <div onClick={()=>handleActiveChat(item)}>
                   {item.whoreceiveid == userInfo.uid ? (
                     <h1 className="text-lg font-bold">{item.whosendname}</h1>
                   ) : (
