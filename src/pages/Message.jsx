@@ -4,6 +4,7 @@ import MsgFriend from "./MsgFriend";
 import MsgGroup from "./MsgGroup";
 import { useEffect, useState } from "react";
 import { getDatabase, onValue, push, ref, set } from "firebase/database";
+import moment from "moment";
 
 const Message = () => {
   const db = getDatabase();
@@ -20,6 +21,7 @@ const Message = () => {
       whoreceiveid: active.activeuserid,
       whoreceivename: active.name,
       msg: msg,
+      date:`${new Date().getFullYear()}/${new Date().getMonth()+1}/${new Date().getDate()}/${ new Date().getDay()}`
     }).then(() => {
       console.log("Send");
     });
@@ -63,6 +65,7 @@ const Message = () => {
                 <div key={i} className="text-right">
                   <div className="inline-block px-2 py-1 my-5 bg-blue-200 border-2 rounded-xl">
                     <p className="text-lg text-blue-800 ">{item.msg}</p>
+                    <p>{moment(item.date,"20111031", "YYYYMMDD").fromNow()}</p>
                   </div>
                 </div>
               ) : (
@@ -71,6 +74,8 @@ const Message = () => {
                   <div key={i} className="text-left">
                     <div className="inline-block px-2 py-1 bg-green-300 border-2 rounded-xl">
                       <p className="text-lg text-gray-800 ">{item.msg}</p>
+                      <p>{moment(item.date,"20111031", "YYYYMMDD").fromNow()}</p>
+
                     </div>
                   </div>
                 )
