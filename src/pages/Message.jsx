@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-undef */
 import { useSelector } from "react-redux";
 import MsgFriend from "./MsgFriend";
@@ -23,7 +24,7 @@ const Message = () => {
       msg: msg,
       date:`${new Date().getFullYear()}/${new Date().getMonth()+1}/${new Date().getDate()}/${ new Date().getDay()}`
     }).then(() => {
-      console.log("Send");
+      console.log("Send"); 
     });
   };
 
