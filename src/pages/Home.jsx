@@ -19,7 +19,7 @@ const Home = () => {
         <MyGroup />
         <FriendRequest/>
         <BlockUser />
-        {/* <MsgFriend/> */}
+        {/* <MsgFriend/>  */}
       </div>
       <div className="py-5 pr-0 lg:pr-5">
         <Post/>

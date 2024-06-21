@@ -17,18 +17,16 @@ const CreatePost = () => {
 
   let handlePost = () => {
     set(push(ref(db, "post")), {
-      postCreateId:userInfo.uid,
+      postCreateId: userInfo.uid,
       postby: userInfo.displayName,
       data: post,
       date: `${new Date().getFullYear()}/${
         new Date().getMonth() + 1
       }/${new Date().getDate()}`,
-    }).then(()=>{
-      closeModal(false)
-    })
+    }).then(() => {
+      closeModal(false);
+    });
   };
-
-
 
   return (
     <div className="pt-5">
@@ -43,7 +41,7 @@ const CreatePost = () => {
         </div>
       </div>
       <Modal isOpen={isModalOpen} onClose={closeModal}>
-        <h2 className="mb-2 text-xl font-bold"></h2>
+        <h2 className="mb-2 text-xl font-bold text-blue-500">Create post</h2>
         <div>
           <textarea
             onChange={(e) => setPost(e.target.value)}

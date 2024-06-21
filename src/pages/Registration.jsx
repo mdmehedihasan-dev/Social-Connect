@@ -13,7 +13,7 @@ import {
   sendEmailVerification,
   signInWithPopup,
   GoogleAuthProvider,
-  updateProfile
+  updateProfile,
 } from "firebase/auth";
 import { Bars } from "react-loader-spinner";
 import { toast } from "react-toastify";
@@ -66,31 +66,35 @@ const Registration = () => {
       createUserWithEmailAndPassword(auth, regData.email, regData.password)
         .then((userCredential) => {
           updateProfile(auth.currentUser, {
-            displayName:regData.name, photoURL: "https://firebasestorage.googleapis.com/v0/b/firechat-8d0d3.appspot.com/o/avatar%2Fimages.jpeg?alt=media&token=166d0476-e902-4ad0-91b7-d89adb051ac7&fbclid=IwZXh0bgNhZW0CMTAAAR2GrFsfmDiD2J6BMLDN27C_h1vLRkmJukexqNoCGaejzGJoLci9ynSCqEY_aem_ASMK10Mw7eyescvITtTQaBmsWmvqhtyIwK6IvFlkZHNfP48Jd3UTgiIrUqu47vdFND7lvEJ_WGmXEPmXghx0m8Eo"
-          }).then(()=>{
-            set(ref(db, 'users/' + userCredential.user.uid), {
-              username: regData.name,
-              email: regData.email,
-              profile_picture : userCredential.user.photoURL
+            displayName: regData.name,
+            photoURL:
+              "https://firebasestorage.googleapis.com/v0/b/firechat-8d0d3.appspot.com/o/avatar%2Fimages.jpeg?alt=media&token=166d0476-e902-4ad0-91b7-d89adb051ac7&fbclid=IwZXh0bgNhZW0CMTAAAR2GrFsfmDiD2J6BMLDN27C_h1vLRkmJukexqNoCGaejzGJoLci9ynSCqEY_aem_ASMK10Mw7eyescvITtTQaBmsWmvqhtyIwK6IvFlkZHNfP48Jd3UTgiIrUqu47vdFND7lvEJ_WGmXEPmXghx0m8Eo",
+          })
+            .then(() => {
+              set(ref(db, "users/" + userCredential.user.uid), {
+                username: regData.name,
+                email: regData.email,
+                profile_picture: userCredential.user.photoURL,
+              });
+            })
+            .then(() => {
+              setLoading(false);
+              sendEmailVerification(auth.currentUser).then(() => {
+                // Email verification sent!
+                toast.success(
+                  "Registration successful😊 Please check your email to verify💌",
+                  {
+                    position: "top-center",
+                    theme: "dark",
+                  }
+                );
+              });
+              navigate("/");
+            })
+            .catch((error) => {
+              setLoading(false);
+              console.log(error);
             });
-          }).
-          then(() => {
-            setLoading(false);
-          sendEmailVerification(auth.currentUser).then(() => {
-            // Email verification sent!
-            toast.success(
-              "Registration successful😊 Please check your email to verify💌",
-              {
-                position: "top-center",
-                theme: "dark",
-              }
-            );
-          });
-          navigate("/");
-          }).catch((error) => {
-            setLoading(false)
-            console.log(error)
-          });
         })
         .catch((error) => {
           setLoading(false);
@@ -104,9 +108,6 @@ const Registration = () => {
           }
         });
     }
-    // setRegData({
-    //   name:"",email:"",password:""
-    // })
   };
 
   // ======================== Login with Google ===============
@@ -116,13 +117,10 @@ const Registration = () => {
 
     signInWithPopup(auth, provider)
       .then((result) => {
-        toast.success(
-          "Login SuccessFull💌",
-          {
-            position: "top-center",
-            theme: "dark",
-          }
-        );
+        toast.success("Login SuccessFull💌", {
+          position: "top-center",
+          theme: "dark",
+        });
         navigate("/dashboard/home");
       })
       .catch((error) => {});
@@ -133,7 +131,7 @@ const Registration = () => {
       <div className="p-10 mt-20 shadow-xl shadow-blue-700">
         <div className="mb-5 font-mono text-base font-bold text-center text-gray ">
           <p className="text-2xl">
-            Hey🙋‍♂️ Welcome to FireChat😎 <br />
+            Hey🙋‍♂️ Welcome to Social Connect😎 <br />
           </p>
           <span>You can Free register here and enjoy it💌 </span>
         </div>

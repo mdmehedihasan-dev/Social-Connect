@@ -3,7 +3,7 @@ import MyPost from "./MyPost"
 
 const Post = () => {
   return (
-    <div className="flex w-full space-x-2">
+    <div className="flex w-full min-h-screen space-x-2">
     <div className="w-2/5 rounded-md ">
     <MyPost/>
     </div>

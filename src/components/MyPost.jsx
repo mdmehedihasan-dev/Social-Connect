@@ -4,11 +4,8 @@ import { MdAutoDelete } from "react-icons/md";
 import { useSelector } from "react-redux";
 
 const MyPost = () => {
-
   let [showPost, setShowPost] = useState([]);
   let userInfo = useSelector((state) => state.user.value);
-
-
 
   const db = getDatabase();
 
@@ -30,30 +27,22 @@ const MyPost = () => {
     // console.log(item);
   };
 
-
-
   return (
-    <div className="w-full">
+    <div className="w-full ">
       <div className="overflow-scroll h-svh">
         {showPost.map((item, i) => (
           <div key={i} className="p-5 font-sans font-semibold">
             <h1 className="text-lg">{item.postby}</h1>
             <p className="text-base">{item.date}</p>
             <p>{item.data}</p>
-            
-              
-              <MdAutoDelete
-                onClick={() => handleDelete(item)}
-                className="text-red-500 cursor-pointer"
-              />
-           
+
+            <MdAutoDelete
+              onClick={() => handleDelete(item)}
+              className="text-red-500 cursor-pointer"
+            />
           </div>
         ))}
       </div>
-
-   
-
-
     </div>
   );
 };
