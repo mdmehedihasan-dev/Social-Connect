@@ -71,16 +71,16 @@ const Friends = () => {
     <div className="pt-5">
       <div
         ref={dropdownRef}
-        className="relative text-white flex items-center justify-center w-10 h-10 text-xl bg-blue-600 rounded-full cursor-pointer group md:w-16 md:h-16 md:text-4xl"
+        className="relative flex items-center justify-center w-10 h-10 text-xl text-white bg-blue-600 rounded-full cursor-pointer group md:w-16 md:h-16 md:text-4xl"
       >
         {" "}
         <GiThreeFriends />
-        <div className="absolute w-10 h-10 text-lg font-bold text-center transition-opacity duration-300 bg-blue-600 rounded-full opacity-0 md:w-16 md:h-16 group-hover:opacity-100">
+        <div className="absolute hidden w-10 h-10 text-lg font-bold text-center transition-opacity duration-300 bg-blue-600 rounded-full opacity-0 md:block md:w-16 md:h-16 group-hover:opacity-100">
          All Friends</div>
         
       </div>
       {show && (
-        <div className="h-auto top-24 left-7 sm:left-[172px] absolute p-2 rounded-md max-h-80 box-container w-small lg:w-box">
+        <div className="h-auto dark:bg-black top-24 left-7 sm:left-[250px] absolute p-2 rounded-md max-h-80 box-container w-small lg:w-box bg-white">
           {/* friends header  */}
 
           <div className="sticky left-0 z-0 flex items-center justify-between pb-4 bg-white dark:bg-black -top-2 ">
@@ -96,7 +96,7 @@ const Friends = () => {
             {friendList.map((item, i) => (
               <div
                 key={i}
-                className="flex items-center justify-between mb-4 group"
+                className="flex items-center justify-between mb-4 bg-white dark:bg-black group"
               >
                 <div className="flex items-center space-x-4">
                   <div>

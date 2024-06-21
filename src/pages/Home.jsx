@@ -5,19 +5,21 @@ import GroupList from "../components/GroupList";
 import MyGroup from "../components/MyGroup";
 import UserList from "../components/UserList";
 import Post from "../components/Post";
-import MsgFriend from "./MsgFriend";
+import CreatePost from "../components/CreatePost";
+// import MsgFriend from "./MsgFriend"; 
 
 const Home = () => {
   return (
-    <div>
-      <div className="flex flex-wrap justify-center gap-5 px-3">
-        <GroupList />
-        <FriendRequest />
-        <Friends />
-        <MyGroup />
+    <div className="flex">
+      <div className="px-3 ite ">
+        <CreatePost/>
         <UserList />
+        <Friends />
+        <GroupList/>
+        <MyGroup />
+        <FriendRequest/>
         <BlockUser />
-        <MsgFriend/>
+        {/* <MsgFriend/> */}
       </div>
       <div className="py-5 pr-0 lg:pr-5">
         <Post/>
