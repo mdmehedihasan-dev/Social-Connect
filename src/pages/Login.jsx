@@ -103,8 +103,7 @@ const Login = () => {
           Social Connect
           </h2>
           <p className="mt-5 font-sans text-xl ">
-            Hey! Social Connect helps you connect with people and share your messages & post
-            🙋‍♂️
+            Hey! Social Connect helps you connect with people and share your messages & post🙋‍♂️
           </p>
           <br />
           <p className="font-serif text-xl text-red-600 ">
