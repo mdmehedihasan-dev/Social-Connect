@@ -13,6 +13,7 @@ import ForgetPassword from "./pages/ForgetPassword";
 import Message from "./pages/Message";
 import Setting from "./pages/Setting";
 import DashBoard from "./pages/DashBoard";
+import MyPost from "./components/MyPost";
 
 function App() {
   const router = createBrowserRouter(
@@ -24,7 +25,8 @@ function App() {
         <Route path="/dashboard" element={<DashBoard />}>
         <Route path="home" element={<Home/>} />
           <Route path="message" element={<Message />} />
-          <Route path="setting" element={<Setting />} />
+          <Route path="setting" element={<Setting/>} />
+          <Route path="mypost" element={<MyPost/>} />
         </Route>
       </Route>
     )

@@ -4,9 +4,13 @@ import { getDownloadURL, getStorage,ref } from "firebase/storage";
 import { useEffect, useState } from "react";
 
 const ProfilePhoto = ({imgId}) => {
+  // const storageRef = firebase.storage().ref(); 
     let [profilPhoto, setProfilePhoto]= useState("");
     const storage = getStorage();
     const photoRef = ref(storage,imgId);
+    // const fileRef = storageRef.child('file.png'); 
+
+
 
     useEffect(()=>{
       getDownloadURL(photoRef)

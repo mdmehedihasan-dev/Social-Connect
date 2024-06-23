@@ -22,7 +22,7 @@ const AllPost = () => {
   }, []);
   return (
     <div className="w-full">
-      <div className="overflow-scroll h-svh">
+      <div className="overflow-y-scroll h-[660px]">
         {showPost.map((item, i) => (
           <div key={i} className="p-5 font-serif ">
             <h1 className="text-xl font-bold">{item.postby}</h1>

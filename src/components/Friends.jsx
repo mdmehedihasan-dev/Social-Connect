@@ -71,12 +71,11 @@ const Friends = () => {
     <div className="pt-5">
       <div
         ref={dropdownRef}
-        className="relative flex items-center justify-center w-10 h-10 text-xl text-white bg-blue-600 rounded-full cursor-pointer group md:w-16 md:h-16 md:text-4xl"
+        className="relative flex items-center justify-center w-10 h-10 text-xl text-white bg-blue-600 rounded-full cursor-pointer md:w-16 md:h-16 md:text-4xl"
       >
         {" "}
         <GiThreeFriends />
-        <div className="absolute hidden w-10 h-10 text-lg font-bold text-center transition-opacity duration-300 bg-blue-600 rounded-full opacity-0 md:block md:w-16 md:h-16 group-hover:opacity-100">
-         All Friends</div>
+      
         
       </div>
       {show && (

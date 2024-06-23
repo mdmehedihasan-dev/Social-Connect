@@ -1,11 +1,13 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-undef */
 import { useSelector } from "react-redux";
-import MsgFriend from "./MsgFriend";
+// import MsgFriend from "./MsgFriend";
 import MsgGroup from "./MsgGroup";
 import { useEffect, useState } from "react";
 import { getDatabase, onValue, push, ref, set } from "firebase/database";
 import moment from "moment";
+import AllMessage from "./AllMessage";
+import { BsSendFill } from "react-icons/bs";
 
 const Message = () => {
   const db = getDatabase();
@@ -22,9 +24,7 @@ const Message = () => {
       whoreceiveid: active.activeuserid,
       whoreceivename: active.name,
       msg: msg,
-      date: `${new Date().getFullYear()}/${
-        new Date().getMonth() + 1
-      }/${new Date().getDate()}/${new Date().getDay()}`,
+      date: `${new Date().getDate()} ${new Date().getHours()}:${new Date().getMinutes()}:${new Date().getSeconds()}`,
     }).then(() => {
       console.log("Send");
     });
@@ -51,7 +51,8 @@ const Message = () => {
   return (
     <div className="flex justify-between">
       <div className="w-2/5 ">
-        <MsgFriend />
+        {/* <MsgFriend /> */}
+        <AllMessage />
         <MsgGroup />
       </div>
 
@@ -70,7 +71,7 @@ const Message = () => {
                 <div key={i} className="text-right">
                   <div className="inline-block px-2 py-1 my-5 bg-blue-200 border-2 rounded-xl">
                     <p className="text-lg text-blue-800 ">{item.msg}</p>
-                    <p>{moment(item.date, "20111031", "YYYYMMDD").fromNow()}</p>
+                    <p> {moment(item.date, "YYYYMMDD h:mm:ss").fromNow()}</p>
                   </div>
                 </div>
               ) : (
@@ -79,9 +80,7 @@ const Message = () => {
                   <div key={i} className="text-left">
                     <div className="inline-block px-2 py-1 bg-green-300 border-2 rounded-xl">
                       <p className="text-lg text-gray-800 ">{item.msg}</p>
-                      <p>
-                        {moment(item.date, "20111031", "YYYYMMDD").fromNow()}
-                      </p>
+                      <p>{moment(item.date, "YYYYMMDD h:mm:ss").fromNow()}</p>
                     </div>
                   </div>
                 )
@@ -96,18 +95,18 @@ const Message = () => {
 
             <div className="absolute rounded-bl-md rounded-br-md  bottom-0  w-[848px] border-t p-3 bg-green-500">
               <div className="flex items-center justify-between">
-                <div className="flex items-center w-4/5 gap-x-2">
-                  <div className="w-4/5">
+                <div className="flex items-center w-full gap-x-2">
+                  <div className="relative w-full">
                     <input
                       onChange={(e) => setMsg(e.target.value)}
                       className="w-full p-3 rounded-xl"
                       type="text"
                     />
                     <button
-                      className="px-3 py-1 text-white bg-red-900 rounded-md"
+                      className="absolute right-0 p-3 text-blue-800 top-1 rounded-xl"
                       onClick={handleChat}
                     >
-                      send
+                      <BsSendFill />
                     </button>
                   </div>
                 </div>

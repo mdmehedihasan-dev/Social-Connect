@@ -34,9 +34,9 @@ const GroupList = () => {
       groupname: groupname,
       adminname: userInfo.displayName,
       adminId: userInfo.uid,
+    }).then(() => {
+      setIsModalOpen(false);
     });
-
-    setGroupName(null);
   };
 
   useEffect(() => {
@@ -68,16 +68,14 @@ const GroupList = () => {
     <div className="pt-5">
       <div
         ref={dropdownRef}
-        className="flex relative items-center text-white justify-center w-10 h-10 md:w-16 md:h-16 text-xl md:text-4xl text-center group bg-[#1e80c1] rounded-full cursor-pointer"
+        className="flex relative items-center text-white justify-center w-10 h-10 md:w-16 md:h-16 text-xl md:text-4xl text-center bg-[#1e80c1] rounded-full cursor-pointer"
       >
         <MdGroups />
-        <div className=" hidden md:block  absolute w-10 h-10 text-lg font-bold  transition-opacity duration-300 bg-[#1e80c1] rounded-full opacity-0 md:w-16 md:h-16 group-hover:opacity-100">
-          All Groups
-        </div>
+      
       </div>
 
       {show && (
-        <div className="absolute h-auto p-2 bg-white rounded-md top-24 left-7 sm:left-[250px] dark:bg-black max-h-80 box-container sm:w-small lg:w-box">
+        <div className="absolute h-auto p-2 bg-white rounded-md top-24 sm:top-40 left-7 sm:left-[250px] dark:bg-black max-h-80 box-container sm:w-small lg:w-box">
           <div>
             <div className="sticky right-0 flex items-center justify-between w-full pb-4 bg-white dark:bg-black -top-2 ">
               <h2 className="font-mono text-2xl ">Groups </h2>

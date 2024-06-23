@@ -4,30 +4,31 @@ import { FaHome, FaMoon, FaSun } from "react-icons/fa";
 import { AiFillMessage } from "react-icons/ai";
 import { IoMdSettings } from "react-icons/io";
 import { TbLogout2 } from "react-icons/tb";
-import { getAuth, signOut,updateProfile } from "firebase/auth";
+import { getAuth, updateProfile, signOut } from "firebase/auth";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { activeUser } from "../slice/userSlice";
 import { useState, createRef } from "react";
 import { Cropper } from "react-cropper";
 import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import "cropperjs/dist/cropper.css";
-import { toggleTheme } from "../slice/themeSlice";
 import { Bars } from "react-loader-spinner";
-import { getStorage, ref, uploadString,getDownloadURL } from "firebase/storage";
+import themeSlice, { toggleTheme } from "../slice/themeSlice";
 
-// const defaultSrc =
-//   "https://raw.githubusercontent.com/roadmanfong/react-cropper/master/example/img/child.jpg";
+import {
+  getStorage,
+  ref,
+  uploadString,
+  getDownloadURL,
+} from "firebase/storage";
 
 const Navbar = () => {
+  const { theme } = useSelector((state) => state.theme);
+
   const auth = getAuth();
   const storage = getStorage();
-
-
-  const { theme } = useSelector((state) => state.theme);
 
   // state for modal
 
@@ -48,36 +49,24 @@ const Navbar = () => {
   // console.log(userInfo.value)
   const navigate = useNavigate();
 
-  const handleSignOut = () => {
-    signOut(auth)
-      .then(() => {
-        localStorage.removeItem("user");
-        dispatch(activeUser(null));
-        navigate("/");
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
-
   // function for crop image
 
   const getCropData = () => {
-    // if (typeof cropperRef.current?.cropper !== "undefined") {
-    //   setCropData(cropperRef.current?.cropper.getCroppedCanvas().toDataURL());
-    // }
     const storageRef = ref(storage, `profile- ${userInfo.uid}`);
     const message4 = cropperRef.current?.cropper.getCroppedCanvas().toDataURL();
     uploadString(storageRef, message4, "data_url").then((snapshot) => {
       console.log("Uploaded a data_url string!");
       getDownloadURL(storageRef).then((downloadURL) => {
-        console.log('File available at', downloadURL);
+        console.log("File available at", downloadURL);
         updateProfile(auth.currentUser, {
-        photoURL:downloadURL
-        }).then(()=>{
-          localStorage.setItem("user",JSON.stringify({...userInfo,photoURL:downloadURL}))
-            dispatch(activeUser({...userInfo,photoURL:downloadURL}))
-        })
+          photoURL: downloadURL,
+        }).then(() => {
+          localStorage.setItem(
+            "user",
+            JSON.stringify({ ...userInfo, photoURL: downloadURL })
+          );
+          dispatch(activeUser({ ...userInfo, photoURL: downloadURL }));
+        });
       });
     });
 
@@ -103,11 +92,6 @@ const Navbar = () => {
   const handleImageUpload = (e) => {
     e.preventDefault();
     let files = e.target.files;
-    // if (e.dataTransfer) {
-    //   files = e.dataTransfer.files;
-    // } else if (e.target) {
-    //   files = e.target.files;
-    // }
     const reader = new FileReader();
     reader.onload = () => {
       setImage(reader.result);
@@ -115,47 +99,90 @@ const Navbar = () => {
     reader.readAsDataURL(files[0]);
   };
 
+  // logout ===================
+  const handleSignOut = () => {
+    signOut(auth)
+      .then(() => {
+        localStorage.removeItem("user");
+        dispatch(activeUser(null));
+        navigate("/");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   return (
-    <div className="min-h-screen bg-[#0866ff]  w-36 rounded-r-xl">
-      <div onClick={handleOpen} className="cursor-pointer pt-9">
-        <Image className="mx-auto" imgSrc={userInfo.photoURL} />
+    <div className="min-h-screen bg-[#123163]  w-80 ">
+      <div className="flex items-center justify-center">
+        <div onClick={handleOpen} className="cursor-pointer">
+          <Image className="mx-auto" imgSrc={userInfo.photoURL} />
+        </div>
+
+        <Link to={"/dashboard/mypost"}>
+        <div className="px-5 pt-2 font-bold text-center text-white">
+          <h1>{userInfo.displayName}</h1>
+        </div>
+        </Link>
       </div>
 
-      <div className="px-5 pt-2 font-bold text-center text-white">
-        <h1>{userInfo.displayName}</h1>
-      </div>
-
-      <div className="flex flex-col justify-center mt-20 text-4xl text-white gap-y-8">
+      <div className="flex flex-col justify-center mt-20 text-xl text-white gap-y-8">
         <Link
-          className={location.pathname == "/dashboard/home" && "active"}
+          className={location.pathname == "/dashboard/home"}
           to={"/dashboard/home"}
         >
-          <FaHome className="mx-auto icon w-[60%] " />
+          <div className="flex items-center px-5 pt-2 font-bold text-center text-white gap-x-4">
+            <FaHome />
+            <p>Home</p>
+          </div>
         </Link>
         <Link
-          className={location.pathname == "/dashboard/message" && "active"}
+          className={location.pathname == "/dashboard/message"}
           to={"/dashboard/message"}
         >
-          {" "}
-          <AiFillMessage className="mx-auto icon w-[60%] " />
+          <div className="flex items-center px-5 pt-2 font-bold text-center text-white gap-x-4">
+            <AiFillMessage />
+            <p>Messages</p>
+          </div>
         </Link>
-        {/* <Link className={location.pathname == "#" && "active"}  to={'#'}><IoMdNotifications className="mx-auto icon w-[60%] "/></Link>  */}
+
         <Link
-          className={location.pathname == "/dashboard/setting" && "active"}
+          className={location.pathname == "/dashboard/setting"}
           to={"/dashboard/setting"}
         >
-          <IoMdSettings className="mx-auto icon w-[60%] " />
+          <div
+            onClick={() => dispatch(toggleTheme())}
+            className="flex items-center px-5 pt-2 font-bold text-center text-white gap-x-4"
+          >
+            <IoMdSettings />
+            <p>setting</p>
+          </div>
         </Link>
 
-        <button className="mx-auto" onClick={() => dispatch(toggleTheme())}>
-          {theme === "light" ? <FaMoon /> : <FaSun />}
+        <div
+          onClick={() => dispatch(toggleTheme())}
+          className="flex items-center px-5 pt-2 font-bold text-center text-white cursor-pointer gap-x-4"
+        >
+          {theme === "light" ? (
+            <>
+              <FaMoon />
+              <p>Dark</p>{" "}
+            </>
+          ) : (
+            <>
+              <FaSun /> <p> Light</p>{" "}
+            </>
+          )}
+        </div>
+
+        <button
+          onClick={handleSignOut}
+          className="flex items-center px-5 pt-2 font-bold text-center text-white cursor-pointer gap-x-4"
+        >
+          <TbLogout2 />
+          <p>Sing Out</p>
         </button>
       </div>
-
-      <div className="mt-20 text-4xl font-bold text-white cursor-pointer">
-        <TbLogout2 onClick={handleSignOut} className="mx-auto w-[60%]" />
-      </div>
-
       {/* modal for image crop  */}
 
       <Modal
@@ -166,60 +193,60 @@ const Navbar = () => {
       >
         <Box sx={style}>
           <Typography id="modal-modal-title">
-           {image && 
-            <div className="box" style={{ width: "50%", float: "right" }}>
-            <h1>Preview</h1>
-            <div
-              className="img-preview"
-              style={{ width: "100%", float: "left", height: "300px" }}
-            />
-          </div>
-           }
+            {image && (
+              <div className="box" style={{ width: "50%", float: "right" }}>
+                <h1>Preview</h1>
+                <div
+                  className="img-preview"
+                  style={{ width: "100%", float: "left", height: "300px" }}
+                />
+              </div>
+            )}
           </Typography>
           <Typography id="modal-modal-description">
             <input onChange={handleImageUpload} type="file" />
             <h1>Image Upload</h1>
-           {image && 
-            <>
-             <Cropper
-              ref={cropperRef}
-              style={{ height: 300, width: "100%" }}
-              zoomTo={0.5}
-              initialAspectRatio={1}
-              preview=".img-preview"
-              src={image}
-              viewMode={1}
-              minCropBoxHeight={10}
-              minCropBoxWidth={10}
-              background={false}
-              responsive={true}
-              autoCropArea={1}
-              checkOrientation={false} // https://github.com/fengyuanchen/cropperjs/issues/671
-              guides={true}
-            />
-
-            <div>
-              {loading ? (
-                <Bars
-                  height="40"
-                  width="80"
-                  color="#1a56db"
-                  ariaLabel="bars-loading"
-                  wrapperStyle={{}}
-                  wrapperClass=""
-                  visible={true}
+            {image && (
+              <>
+                <Cropper
+                  ref={cropperRef}
+                  style={{ height: 300, width: "100%" }}
+                  zoomTo={0.5}
+                  initialAspectRatio={1}
+                  preview=".img-preview"
+                  src={image}
+                  viewMode={1}
+                  minCropBoxHeight={10}
+                  minCropBoxWidth={10}
+                  background={false}
+                  responsive={true}
+                  autoCropArea={1}
+                  checkOrientation={false} // https://github.com/fengyuanchen/cropperjs/issues/671
+                  guides={true}
                 />
-              ) : (
-                <button
-                  className="px-5 py-1 mt-2 font-bold bg-gray-600 rounded-md text-yellow-50"
-                  onClick={getCropData}
-                >
-                  Upload{" "}
-                </button>
-              )}
-            </div>
-            </>
-           }
+
+                <div>
+                  {loading ? (
+                    <Bars
+                      height="40"
+                      width="80"
+                      color="#1a56db"
+                      ariaLabel="bars-loading"
+                      wrapperStyle={{}}
+                      wrapperClass=""
+                      visible={true}
+                    />
+                  ) : (
+                    <button
+                      className="px-5 py-1 mt-2 font-bold bg-gray-600 rounded-md text-yellow-50"
+                      onClick={getCropData}
+                    >
+                      Upload{" "}
+                    </button>
+                  )}
+                </div>
+              </>
+            )}
           </Typography>
         </Box>
       </Modal>

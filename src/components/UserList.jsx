@@ -4,6 +4,7 @@ import { BsThreeDotsVertical } from "react-icons/bs";
 import { getDatabase, ref, onValue, set, push } from "firebase/database";
 import { useSelector } from "react-redux";
 import { FaUsersViewfinder } from "react-icons/fa6";
+import ProfilePhoto from "./ProfilePhoto";
 // import ProfilePhoto from "./ProfilePhoto";
 
 const UserList = () => {
@@ -93,11 +94,10 @@ const UserList = () => {
     <div className="pt-5">
       <div
         ref={dropdownRef}
-        className="relative flex items-center justify-center w-10 h-10 text-xl text-white bg-purple-300 rounded-full cursor-pointer group md:w-16 md:h-16 md:text-4xl"
+        className="relative flex items-center justify-center w-10 h-10 text-xl text-white bg-purple-300 rounded-full cursor-pointer md:w-16 md:h-16 md:text-4xl"
       >
         <FaUsersViewfinder />
-        <div className="absolute hidden w-10 h-10 text-lg font-bold text-center transition-opacity duration-300 bg-purple-300 rounded-full opacity-0 md:block md:w-16 md:h-16 group-hover:opacity-100">
-         All Users </div>
+       
       </div>
       {show && (
         <div className="absolute bg-white dark:bg-black top-24 left-7 sm:left-[250px] h-auto p-2 rounded-md max-h-80 box-container w-small lg:w-box">
@@ -120,7 +120,7 @@ const UserList = () => {
               >
                 <div className="flex items-center space-x-4">
                   <div>
-                  {/* <ProfilePhoto  imgId={item.id} /> */}
+                  <ProfilePhoto imgId={item.id} />
                     <img
                       className="w-10 h-10 rounded-full"
                       src="../../public/Ellipse 1 (1).png"
