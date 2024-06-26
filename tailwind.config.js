@@ -9,7 +9,8 @@ export default {
   theme: {
     extend: {
       colors:{
-        "primary":"#5F35F5"
+        "primary":"#5F35F5",
+        "dark":"#242526"
       },
       width: {
         'box': '400px',

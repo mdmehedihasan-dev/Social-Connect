@@ -2,7 +2,7 @@
 
 const Image = ({imgSrc,imgAlt,className}) => {
   return (
-    <img className={`w-24 h-24 rounded-full ${className}`} src={imgSrc} alt={imgAlt} />
+    <img className={`w-12 h-12 rounded-full ${className}`} src={imgSrc} alt={imgAlt} />
   )
 }
 

@@ -23,6 +23,7 @@ import {
   uploadString,
   getDownloadURL,
 } from "firebase/storage";
+import { getDatabase, set, ref as databaseref } from "firebase/database";
 
 const Navbar = () => {
   const { theme } = useSelector((state) => state.theme);
@@ -40,6 +41,7 @@ const Navbar = () => {
   const [image, setImage] = useState("");
   const [cropData, setCropData] = useState("#");
   const cropperRef = createRef();
+  const db = getDatabase();
 
   let [loading, setLoading] = useState(false);
 
@@ -48,12 +50,10 @@ const Navbar = () => {
   let userInfo = useSelector((state) => state.user.value);
   // console.log(userInfo.value)
   const navigate = useNavigate();
-
   // function for crop image
-
   const getCropData = () => {
-    const storageRef = ref(storage, `profile- ${userInfo.uid}`);
     const message4 = cropperRef.current?.cropper.getCroppedCanvas().toDataURL();
+    const storageRef = ref(storage, `profile- ${userInfo.uid}`);
     uploadString(storageRef, message4, "data_url").then((snapshot) => {
       console.log("Uploaded a data_url string!");
       getDownloadURL(storageRef).then((downloadURL) => {
@@ -61,18 +61,28 @@ const Navbar = () => {
         updateProfile(auth.currentUser, {
           photoURL: downloadURL,
         }).then(() => {
-          localStorage.setItem(
-            "user",
-            JSON.stringify({ ...userInfo, photoURL: downloadURL })
-          );
-          dispatch(activeUser({ ...userInfo, photoURL: downloadURL }));
+          set(databaseref(db, "users/" + userInfo.uid), {
+            userid: userInfo.uid,
+            username: userInfo.displayName,
+            email: userInfo.email,
+            profile_picture: downloadURL,
+          });
+          console.log(downloadURL);
+          // localStorage.setItem(
+          //   "user",
+          //   JSON.stringify({ ...userInfo, photoURL: downloadURL })
+          // );
+          // dispatch(activeUser({ ...userInfo, photoURL: downloadURL }));
         });
+        localStorage.setItem(
+          "user",
+          JSON.stringify({ ...userInfo, photoURL: downloadURL })
+        );
+        dispatch(activeUser({ ...userInfo, photoURL: downloadURL }));
       });
     });
-
     setOpen(false);
   };
-
   // style for modal ==========
   const style = {
     position: "absolute",
@@ -85,9 +95,7 @@ const Navbar = () => {
     boxShadow: 24,
     p: 4,
   };
-
   // style end modal ==========
-
   // function for image upload
   const handleImageUpload = (e) => {
     e.preventDefault();
@@ -113,18 +121,18 @@ const Navbar = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#123163]  w-80 ">
-      <div className="flex items-center justify-center">
-        <div onClick={handleOpen} className="cursor-pointer">
-          <Image className="mx-auto" imgSrc={userInfo.photoURL} />
-        </div>
+    <div className="min-h-screen bg-dark w-80 ">
+      <div className="flex items-center px-5 pt-12 font-bold text-center text-white gap-x-4">
 
-        <Link to={"/dashboard/mypost"}>
-        <div className="px-5 pt-2 font-bold text-center text-white">
+      {/* <Image onClick={handleOpen}  imgSrc={userInfo.photoURL} /> */}
+      <img onClick={handleOpen} className="w-12 h-12 rounded-full cursor-pointer " src={userInfo.photoURL} alt="" />
+
+       <Link to={"/dashboard/mypost"}> 
           <h1>{userInfo.displayName}</h1>
-        </div>
+       
         </Link>
-      </div>
+      </div> 
+
 
       <div className="flex flex-col justify-center mt-20 text-xl text-white gap-y-8">
         <Link

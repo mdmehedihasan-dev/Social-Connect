@@ -4,7 +4,6 @@ import { BsThreeDotsVertical } from "react-icons/bs";
 import { getDatabase, ref, onValue, set, push } from "firebase/database";
 import { useSelector } from "react-redux";
 import { FaUsersViewfinder } from "react-icons/fa6";
-import ProfilePhoto from "./ProfilePhoto";
 // import ProfilePhoto from "./ProfilePhoto";
 
 const UserList = () => {
@@ -34,11 +33,12 @@ const UserList = () => {
     onValue(userRef, (snapshot) => {
       const arr = [];
       snapshot.forEach((item) => {
-        if (userInfo.uid !== item.key) {
+        if (userInfo.uid != item.key) {
           arr.push({
             userId: item.key,
             username: item.val().username,
             email: item.val().email,
+            photo:item.val().profile_picture
           });
         }
       });
@@ -92,19 +92,19 @@ const UserList = () => {
 
   return (
     <div className="pt-5">
-      <div
+      {/* <div
         ref={dropdownRef}
         className="relative flex items-center justify-center w-10 h-10 text-xl text-white bg-purple-300 rounded-full cursor-pointer md:w-16 md:h-16 md:text-4xl"
       >
         <FaUsersViewfinder />
        
-      </div>
-      {show && (
-        <div className="absolute bg-white dark:bg-black top-24 left-7 sm:left-[250px] h-auto p-2 rounded-md max-h-80 box-container w-small lg:w-box">
+      </div> */}
+      {/* {show && ( )}  */}
+        <div className="h-auto p-2 bg-white dark:bg-dark max-h-80 box-container w-small lg:w-box">
           {/* friends header  */}
 
-          <div className="sticky left-0 flex items-center justify-between pb-4 bg-white dark:bg-black -top-2 ">
-            <h2 className="font-mono text-2xl">User List </h2>
+          <div className="sticky left-0 flex items-center justify-between pb-4 bg-white dark:bg-dark -top-2 ">
+            <h2 className="font-mono text-2xl">All Users </h2>
             <div className="cursor-pointer">
               <BsThreeDotsVertical />
             </div>
@@ -120,11 +120,11 @@ const UserList = () => {
               >
                 <div className="flex items-center space-x-4">
                   <div>
-                  <ProfilePhoto imgId={item.id} />
+                  {/* <ProfilePhoto imgId={item.id} /> */}
                     <img
                       className="w-10 h-10 rounded-full"
-                      src="../../public/Ellipse 1 (1).png"
-                      alt=""
+                      src={item.photo}
+                      
                     />
                   </div>
                   <div>
@@ -160,7 +160,7 @@ const UserList = () => {
             ))}
           </div>
         </div>
-      )}
+      
     </div>
   );
 };

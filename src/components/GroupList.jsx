@@ -66,18 +66,18 @@ const GroupList = () => {
 
   return (
     <div className="pt-5">
-      <div
+      {/* <div
         ref={dropdownRef}
         className="flex relative items-center text-white justify-center w-10 h-10 md:w-16 md:h-16 text-xl md:text-4xl text-center bg-[#1e80c1] rounded-full cursor-pointer"
       >
         <MdGroups />
       
-      </div>
+      </div> */}
 
-      {show && (
-        <div className="absolute h-auto p-2 bg-white rounded-md top-24 sm:top-40 left-7 sm:left-[250px] dark:bg-black max-h-80 box-container sm:w-small lg:w-box">
+      {/* {show && (    )}  */}
+        <div className="h-auto p-2 bg-white  dark:bg-dark max-h-80 box-container sm:w-small lg:w-box">
           <div>
-            <div className="sticky right-0 flex items-center justify-between w-full pb-4 bg-white dark:bg-black -top-2 ">
+            <div className="sticky right-0 flex items-center justify-between w-full pb-4 bg-white dark:bg-dark -top-2 ">
               <h2 className="font-mono text-2xl ">Groups </h2>
               <IoCreate onClick={openModal} className="cursor-pointer" />
             </div>
@@ -111,7 +111,7 @@ const GroupList = () => {
             ))}
           </div>
         </div>
-      )}
+    
 
       <Modal isOpen={isModalOpen} onClose={closeModal}>
         <h2 className="mb-2 text-xl font-bold">Group Name</h2>
