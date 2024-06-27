@@ -79,7 +79,7 @@ const Friends = () => {
         
       </div> */}
       {/* {show && (   )}  */}
-        <div className="h-auto p-2 bg-white  dark:bg-dark max-h-80 box-container w-small lg:w-box">
+        <div className="h-auto p-2 bg-white dark:bg-dark max-h-80 box-container w-small lg:w-box">
           {/* friends header  */}
 
           <div className="z-0 flex items-center justify-between pb-4 bg-white dark:bg-dark -top-2">
@@ -95,7 +95,7 @@ const Friends = () => {
             {friendList.map((item, i) => (
               <div
                 key={i}
-                className="flex items-center justify-between mb-4 bg-white dark:bg-black group"
+                className="flex items-center justify-between mb-4 bg-white dark:bg-dark group"
               >
                 <div className="flex items-center space-x-4">
                   <div>

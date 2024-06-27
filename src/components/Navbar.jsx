@@ -121,8 +121,8 @@ const Navbar = () => {
   };
 
   return (
-    <div className="min-h-screen bg-dark w-80 ">
-      <div className="flex items-center px-5 pt-12 font-bold text-center text-white gap-x-4">
+    <div className="min-h-screen bg-white dark:bg-dark w-80 ">
+      <div className="flex items-center px-5 pt-12 font-bold text-center gap-x-4">
 
       {/* <Image onClick={handleOpen}  imgSrc={userInfo.photoURL} /> */}
       <img onClick={handleOpen} className="w-12 h-12 rounded-full cursor-pointer " src={userInfo.photoURL} alt="" />
@@ -134,12 +134,12 @@ const Navbar = () => {
       </div> 
 
 
-      <div className="flex flex-col justify-center mt-20 text-xl text-white gap-y-8">
+      <div className="flex flex-col justify-center mt-20 text-xl gap-y-8">
         <Link
           className={location.pathname == "/dashboard/home"}
           to={"/dashboard/home"}
         >
-          <div className="flex items-center px-5 pt-2 font-bold text-center text-white gap-x-4">
+          <div className="flex items-center px-5 pt-2 font-bold text-center gap-x-4">
             <FaHome />
             <p>Home</p>
           </div>
@@ -148,7 +148,7 @@ const Navbar = () => {
           className={location.pathname == "/dashboard/message"}
           to={"/dashboard/message"}
         >
-          <div className="flex items-center px-5 pt-2 font-bold text-center text-white gap-x-4">
+          <div className="flex items-center px-5 pt-2 font-bold text-center gap-x-4">
             <AiFillMessage />
             <p>Messages</p>
           </div>
@@ -159,8 +159,8 @@ const Navbar = () => {
           to={"/dashboard/setting"}
         >
           <div
-            onClick={() => dispatch(toggleTheme())}
-            className="flex items-center px-5 pt-2 font-bold text-center text-white gap-x-4"
+            
+            className="flex items-center px-5 pt-2 font-bold text-center gap-x-4"
           >
             <IoMdSettings />
             <p>setting</p>
@@ -169,7 +169,7 @@ const Navbar = () => {
 
         <div
           onClick={() => dispatch(toggleTheme())}
-          className="flex items-center px-5 pt-2 font-bold text-center text-white cursor-pointer gap-x-4"
+          className="flex items-center px-5 pt-2 font-bold text-center cursor-pointer gap-x-4"
         >
           {theme === "light" ? (
             <>
@@ -185,7 +185,7 @@ const Navbar = () => {
 
         <button
           onClick={handleSignOut}
-          className="flex items-center px-5 pt-2 font-bold text-center text-white cursor-pointer gap-x-4"
+          className="flex items-center px-5 pt-2 font-bold text-center cursor-pointer gap-x-4"
         >
           <TbLogout2 />
           <p>Sing Out</p>

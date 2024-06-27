@@ -75,7 +75,7 @@ const GroupList = () => {
       </div> */}
 
       {/* {show && (    )}  */}
-        <div className="h-auto p-2 bg-white  dark:bg-dark max-h-80 box-container sm:w-small lg:w-box">
+        <div className="h-auto p-2 bg-white dark:bg-dark max-h-80 box-container sm:w-small lg:w-box">
           <div>
             <div className="sticky right-0 flex items-center justify-between w-full pb-4 bg-white dark:bg-dark -top-2 ">
               <h2 className="font-mono text-2xl ">Groups </h2>
@@ -113,15 +113,15 @@ const GroupList = () => {
         </div>
     
 
-      <Modal isOpen={isModalOpen} onClose={closeModal}>
-        <h2 className="mb-2 text-xl font-bold">Group Name</h2>
+      <Modal  isOpen={isModalOpen} onClose={closeModal}>
+        <h2 className="mb-2 text-xl font-bold ">Group Name</h2>
 
         <div>
-          <input onChange={(e) => setGroupName(e.target.value)} type="text" />{" "}
+          <input className="dark:bg-dark" onChange={(e) => setGroupName(e.target.value)} type="text" />{" "}
           <br />
           <button
             onClick={handleGroupName}
-            className="px-2 py-1 mt-2 font-bold text-white bg-green-600 "
+            className="px-2 py-1 mt-2 font-bold text-white bg-blue-800 "
           >
             Submit
           </button>

@@ -134,7 +134,7 @@ const UserList = () => {
                 <div>
                   {friendList.includes(item.userId + userInfo.uid) ||
                   friendList.includes(userInfo.uid + item.userId) ? (
-                    <button className="px-2 text-white bg-gray-300 rounded-md disabled:text-slate-500">
+                    <button className="px-2 text-white bg-green-500 rounded-md disabled:text-slate-500">
                       pending
                     </button>
                   ) : block.includes(item.userId + userInfo.uid) ||

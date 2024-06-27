@@ -22,8 +22,8 @@ const MsgGroup = () => {
 
   return (
     <div className="pt-5">
-      <div className="p-2 bg-white rounded-md top-24 left-7 sm:left-[172px] dark:bg-black h-80 box-container sm:w-small lg:w-box">
-        <div className="right-0 items-center justify-between w-full pb-4 bg-white dark:bg-black -top-2">
+      <div className="p-2 bg-white rounded-md top-24 left-7 sm:left-[172px] dark:bg-dark h-80 box-container sm:w-small lg:w-box">
+        <div className="right-0 items-center justify-between w-full pb-4 bg-white dark:bg-dark -top-2">
           <h2 className="font-mono text-2xl ">Groups </h2>
         </div>
         {groupList.map((item, i) => (

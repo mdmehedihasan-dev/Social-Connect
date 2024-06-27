@@ -77,7 +77,7 @@ const AllMessage = () => {
   return (
     <div className="pt-5" >
          <div className="h-auto p-2 rounded-md box-container w-small lg:w-box">
-        <div className="left-0 z-0 flex items-center justify-between pb-4 bg-white dark:bg-black -top-2">
+        <div className="left-0 z-0 flex items-center justify-between pb-4 bg-white dark:bg-dark -top-2">
           <h2 className="font-mono text-2xl">Friends </h2>
         </div>
 
@@ -85,7 +85,7 @@ const AllMessage = () => {
           {friendList.map((item, i) => (
             <div
               key={i}
-              className="flex items-center justify-between mb-4 bg-white dark:bg-black group"
+              className="flex items-center justify-between mb-4 bg-white dark:bg-dark group"
             >
               <div className="flex items-center space-x-4">
                 <div>

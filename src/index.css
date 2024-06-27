@@ -76,6 +76,15 @@
     
   }
 
+  .msgbox-container{
+    border-bottom: 1px solid #333436;
+    overflow-y: scroll;
+    box-shadow: 1px 0px 14px 2px rgba(0,0,0,0.75);
+    
+    
+  }
+
+
 
 
 
