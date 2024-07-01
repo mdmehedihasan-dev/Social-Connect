@@ -6,18 +6,25 @@ import MsgGroup from "./MsgGroup";
 import { useEffect, useState } from "react";
 import { getDatabase, onValue, push, ref, set } from "firebase/database";
 import moment from "moment";
-import AllMessage from "./AllMessage";
 import { BsSendFill } from "react-icons/bs";
 import EmojiPicker from "emoji-picker-react";
+import { IoMdCloseCircleOutline } from "react-icons/io";
+import Friends from "../components/Friends";
 
 const Message = () => {
   const db = getDatabase();
   const [msg, setMsg] = useState("");
+  const [showMsg, setShowMsg] = useState(false);
+
   const [emojishow, setEmojiShow] = useState(false);
   const [msgList, setMsgList] = useState([]);
 
   let active = useSelector((state) => state.activeChat.value);
   let userInfo = useSelector((state) => state.user.value);
+
+  let handleMsgShow = ()=>{
+    setShowMsg(true)
+  }
 
   let handleChat = () => {
     if (active == null) {
@@ -64,21 +71,31 @@ const Message = () => {
   }, [active?.activeuserid]);
 
   return (
-    <div className="flex items-center justify-between">
+    <div >
       <div>
-        <AllMessage />
+        <div className="cursor-pointer" onClick={handleMsgShow}>
+          <Friends/>
+        {/* <AllMessage /> */}
+        </div>
         <MsgGroup />
       </div>
 
-      <div className="relative pt-5">
-        <div className=" rounded-md h-[660px] msgbox-container w-small lg:w-[700px]">
+      {
+        showMsg &&
+     <div className="absolute bottom-0 bg-white right-10">
+       <div className="relative pt-5">
+        <div className="rounded-md h-[550px] msgbox-container w-[460px]  ">
           <div>
             {/* ==============name=================== */}
-            <div className="absolute w-full px-2 py-3 font-bold text-white bg-blue-500">
+            <div className="absolute top-0 flex items-center justify-between w-full px-2 py-3 font-bold text-white bg-black">
+              <div>
               <h1 className="">
                 {active == null ? "Please select a user" : active?.name}
               </h1>
               <p>Active</p>
+              </div>
+              <IoMdCloseCircleOutline className="text-xl cursor-pointer" onClick={()=>setShowMsg(false)}/>
+
             </div>
 
             {active != null &&
@@ -112,7 +129,7 @@ const Message = () => {
 
             {/* write message ====================== */}
 
-            <div className="absolute rounded-md bottom-0  lg:w-[700px] border-t p-3 bg-green-500">
+            <div className="absolute bottom-0 w-full p-3 bg-green-500 border-t rounded-md">
               <div className="flex items-center justify-between">
                 <div className="flex items-center w-full gap-x-2">
                   <div className="relative w-full">
@@ -149,6 +166,11 @@ const Message = () => {
           </div>
         </div>
       </div>
+     </div>
+
+      }
+
+     
     </div>
   );
 };

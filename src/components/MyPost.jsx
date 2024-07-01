@@ -14,6 +14,7 @@ import { useSelector } from "react-redux";
 import MyGroup from "./MyGroup";
 import Friends from "./Friends";
 import BlockUser from "./BlockUser";
+import FriendRequest from "./FriendRequest";
 
 const MyPost = () => {
   const [post, setPost] = useState("");
@@ -126,9 +127,10 @@ const MyPost = () => {
           </div>
         </div>
         <div>
-          <Friends />
+          {/* <Friends /> */}
           <MyGroup />
           <BlockUser />
+          <FriendRequest/>
         </div>
       </div>
     </div>

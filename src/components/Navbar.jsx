@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import Image from "./Image";
-import { FaHome, FaMoon, FaSun } from "react-icons/fa";
+import { FaHome, FaMoon, FaSun, FaUsers } from "react-icons/fa";
 import { AiFillMessage } from "react-icons/ai";
 import { IoMdSettings } from "react-icons/io";
 import { TbLogout2 } from "react-icons/tb";
@@ -24,6 +24,7 @@ import {
   getDownloadURL,
 } from "firebase/storage";
 import { getDatabase, set, ref as databaseref } from "firebase/database";
+import { GiThreeFriends } from "react-icons/gi";
 
 const Navbar = () => {
   const { theme } = useSelector((state) => state.theme);
@@ -123,16 +124,18 @@ const Navbar = () => {
   return (
     <div className="min-h-screen bg-white dark:bg-dark w-80 ">
       <div className="flex items-center px-5 pt-12 font-bold text-center gap-x-4">
+        {/* <Image onClick={handleOpen}  imgSrc={userInfo.photoURL} /> */}
+        <img
+          onClick={handleOpen}
+          className="w-12 h-12 rounded-full cursor-pointer "
+          src={userInfo.photoURL}
+          alt=""
+        />
 
-      {/* <Image onClick={handleOpen}  imgSrc={userInfo.photoURL} /> */}
-      <img onClick={handleOpen} className="w-12 h-12 rounded-full cursor-pointer " src={userInfo.photoURL} alt="" />
-
-       <Link to={"/dashboard/mypost"}> 
+        <Link to={"/dashboard/mypost"}>
           <h1>{userInfo.displayName}</h1>
-       
         </Link>
-      </div> 
-
+      </div>
 
       <div className="flex flex-col justify-center mt-20 text-xl gap-y-8">
         <Link
@@ -145,25 +148,25 @@ const Navbar = () => {
           </div>
         </Link>
         <Link
-          className={location.pathname == "/dashboard/message"}
-          to={"/dashboard/message"}
+          className={location.pathname == "/dashboard/allusers"}
+          to={"/dashboard/allusers"}
         >
           <div className="flex items-center px-5 pt-2 font-bold text-center gap-x-4">
-            <AiFillMessage />
-            <p>Messages</p>
+          <FaUsers/>
+            <p>User List</p>
           </div>
         </Link>
 
         <Link
-          className={location.pathname == "/dashboard/setting"}
-          to={"/dashboard/setting"}
+          className={location.pathname == "/dashboard/friendrequest"}
+          to={"/dashboard/friendrequest"}
         >
-          <div
-            
-            className="flex items-center px-5 pt-2 font-bold text-center gap-x-4"
-          >
-            <IoMdSettings />
-            <p>setting</p>
+          <div className="flex items-center px-5 pt-2 font-bold text-center gap-x-4">
+          <GiThreeFriends/>
+
+            <p>
+              Friend 
+              Request</p>
           </div>
         </Link>
 

@@ -62,7 +62,10 @@ const FriendRequest = () => {
   };
 
   return (
-    <div className="pt-5">
+    <div className="h-screen pt-5 box-container w-small lg:w-full">
+         <div className="left-0 flex items-center justify-between pb-4 bg-white dark:bg-dark -top-2">
+            <h2 className="font-mono text-2xl">Friend Request </h2>
+          </div>
       {/* <div
         ref={dropdownRef}
         className="relative flex items-center justify-center w-10 h-10 text-xl text-white bg-purple-600 rounded-full cursor-pointer md:w-16 md:h-16 md:text-4xl"
@@ -71,44 +74,39 @@ const FriendRequest = () => {
         
       </div> */}
       {/* {show && (    )}  */}
-        <div className="h-auto p-2 bg-white rounded-md dark:bg-dark max-h-80 box-container w-small lg:w-box">
+        <div className="h-auto p-2 bg-white dark:bg-dark ">
           {/* friends header  */}
-          <div className="sticky left-0 flex items-center justify-between pb-4 bg-white dark:bg-dark -top-2 ">
-            <h2 className="font-mono text-2xl">Friend Request </h2>
-            <div className="cursor-pointer">
-              <BsThreeDotsVertical />
-            </div>
-          </div>
+       
           {/* friends name  */}
 
-          <div>
+          <div className="flex flex-wrap gap-y-20 gap-x-10 ">
             {requestList.map((item, i) => (
-              <div
+              <div 
                 key={i}
-                className="flex items-center justify-between mb-4 group"
+                className="w-60 h-60"
               >
-                <div className="flex items-center space-x-4">
+                <div >
                   <div>
                     <img
-                      className="w-10 h-10 rounded-full"
-                      src="../../public/Ellipse 1 (1).png"
+                      className="w-full rounded-md"
+                      src="../../public/images.jpeg"
                       alt=""
                     />
                   </div>
-                  <div>
-                    <h1 className="text-lg font-bold">{item.whosendname}</h1>
+                  <div className="text-center">
+                    <h1 className="text-lg font-bold ">{item.whosendname}</h1>
                   </div>
                 </div>
-                <div className="flex flex-wrap gap-x-2 gap-y-2">
+                <div className="w-full ">
                   <button
                     onClick={() => handleRequestAccept(item)}
-                    className="px-2 text-white bg-green-700 rounded-md"
+                    className="w-full px-2 mb-2 text-white bg-blue-700 rounded-sm"
                   >
-                    Accept
+                    Confirm
                   </button>
                   <button
                     onClick={() => handleCancel(item.id)}
-                    className="px-2 text-white bg-red-600 rounded-md"
+                    className="w-full px-2 text-white bg-red-600 rounded-sm"
                   >
                     Cancel
                   </button>

@@ -33,11 +33,11 @@ const CreatePost = () => {
       <div
         onClick={openModal}
         ref={dropdownRef}
-        className="relative flex items-center justify-center w-10 h-10 text-xl text-center text-white bg-purple-600 rounded-full cursor-pointer group md:w-16 md:h-16 md:text-4xl"
+      
       >
-        <TfiWrite />
-        <div className=" hidden md:block  absolute w-10 h-10 text-lg font-bold  transition-opacity duration-300 bg-[#1e80c1] rounded-full opacity-0 md:w-16 md:h-16 group-hover:opacity-100">
-          Write Here
+        {/* <TfiWrite /> */}
+        <div className="font-bold cursor-pointer" >
+          What's On Your mind now ? Write Here......
         </div>
       </div>
       <Modal isOpen={isModalOpen} onClose={closeModal}>
@@ -45,7 +45,7 @@ const CreatePost = () => {
         <div>
           <textarea
             onChange={(e) => setPost(e.target.value)}
-            className="w-full rounded-md resize-x"
+            className="w-full rounded-md resize-x dark:bg-dark"
             placeholder="Write something here........ "
             type="text"
           />{" "}

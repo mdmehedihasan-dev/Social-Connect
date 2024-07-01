@@ -4,6 +4,7 @@ import Navbar from "../components/Navbar";
 import { FaBars } from "react-icons/fa";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import Header from "../components/Header";
 
 const DashBoard = () => {
   const [show, setShow] = useState(false);
@@ -19,7 +20,9 @@ const DashBoard = () => {
   }, []);
 
   return (
-    <div className="flex gap-x-5">
+   <div>
+    {/* <Header/> */}
+     <div className="flex gap-x-5">
       <FaBars
         onClick={() => setShow(!show)}
         className="absolute block text-2xl text-gray-600 cursor-pointer top-2 right-2 md:hidden"
@@ -32,6 +35,7 @@ const DashBoard = () => {
         <Outlet />
       </div>
     </div>
+   </div>
   );
 };
 
