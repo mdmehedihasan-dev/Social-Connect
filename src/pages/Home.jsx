@@ -1,5 +1,4 @@
 import BlockUser from "../components/BlockUser";
-import FriendRequest from "../components/FriendRequest";
 // import Friends from "../components/Friends";
 // import GroupList from "../components/GroupList";
 // import MyGroup from "../components/MyGroup";
@@ -12,7 +11,7 @@ import CreatePost from "../components/CreatePost";
 
 const Home = () => {
   return (
-    <div className="flex h-screen">
+    <div className="flex flex-col h-screen sm:flex-row">
       
        <div>
         <Post/>
@@ -21,7 +20,7 @@ const Home = () => {
         <CreatePost/>
         <Message/>
         {/* <UserList /> */}
-        <FriendRequest/>
+       
         {/* <MsgFriend/>  */}
         {/* <Friends/> */}
         {/* <GroupList/> */}

@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from "react";
-import { MdGroups } from "react-icons/md";
 import Modal from "./Modal";
 import { IoCreate } from "react-icons/io5";
 import { getDatabase, push, ref, set, onValue } from "firebase/database";
@@ -53,6 +52,8 @@ const GroupList = () => {
     });
   }, []);
 
+  
+
   let handleJoinGroup = (item) => {
     set(push(ref(db, "groupRequest/")), {
       adminid: item.adminId,
@@ -78,7 +79,7 @@ const GroupList = () => {
         <div className="h-auto p-2 bg-white dark:bg-dark max-h-80 box-container sm:w-small lg:w-box">
           <div>
             <div className="sticky right-0 flex items-center justify-between w-full pb-4 bg-white dark:bg-dark -top-2 ">
-              <h2 className="font-mono text-2xl ">Groups </h2>
+              <h2 className="font-mono text-2xl ">Groups</h2>
               <IoCreate onClick={openModal} className="cursor-pointer" />
             </div>
             {groupList.map((item, i) => (
@@ -123,7 +124,7 @@ const GroupList = () => {
             onClick={handleGroupName}
             className="px-2 py-1 mt-2 font-bold text-white bg-blue-800 "
           >
-            Submit
+            Submit 
           </button>
         </div>
       </Modal>

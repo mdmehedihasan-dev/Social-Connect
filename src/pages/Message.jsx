@@ -73,7 +73,7 @@ const Message = () => {
   return (
     <div >
       <div>
-        <div className="cursor-pointer" onClick={handleMsgShow}>
+        <div className="cursor-pointer" onClick={handleMsgShow} >
           <Friends/>
         {/* <AllMessage /> */}
         </div>

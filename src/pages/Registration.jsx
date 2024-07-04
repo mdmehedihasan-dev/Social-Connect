@@ -128,7 +128,7 @@ const Registration = () => {
 
   return (
     <div className="max-w-screen-md mx-auto">
-      <div className="p-10 mt-20 shadow-xl shadow-blue-700">
+      <div className="p-10 shadow-xl shadow-blue-700">
         <div className="mb-5 font-mono text-base font-bold text-center text-gray ">
           <p className="text-2xl">
             Hey🙋‍♂️ Welcome to Social Connect😎 <br />
@@ -141,7 +141,7 @@ const Registration = () => {
           <div className="">
             <label>Name :</label> <br />
             <input
-              className="w-full px-2 py-1 rounded-md md:w-96 outline-blue-700 outline"
+              className="w-full px-2 py-1 rounded-md dark:bg-black md:w-96 outline-blue-700 outline"
               placeholder="Fullname"
               type="text"
               id="name"
@@ -156,7 +156,7 @@ const Registration = () => {
           <div className="">
             <label>Email :</label> <br />
             <input
-              className="w-full px-2 py-1 rounded-md md:w-96 outline-blue-700 outline"
+              className="w-full px-2 py-1 rounded-md dark:bg-black md:w-96 outline-blue-700 outline"
               placeholder="name@gmail.com"
               type="email"
               onChange={handleChange}
@@ -171,7 +171,7 @@ const Registration = () => {
           <div className="relative">
             <label>Password :</label> <br />
             <input
-              className="w-full px-2 py-1 rounded-md md:w-96 outline-blue-700 outline"
+              className="w-full px-2 py-1 rounded-md dark:bg-black md:w-96 outline-blue-700 outline"
               placeholder="********"
               type={!showPass ? "password" : "text"}
               id="password"

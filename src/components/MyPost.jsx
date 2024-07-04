@@ -12,12 +12,13 @@ import { useEffect, useState } from "react";
 import { MdAutoDelete } from "react-icons/md";
 import { useSelector } from "react-redux";
 import MyGroup from "./MyGroup";
-import Friends from "./Friends";
+// import Friends from "./Friends";
 import BlockUser from "./BlockUser";
 import FriendRequest from "./FriendRequest";
+import CreatePost from "./CreatePost";
 
 const MyPost = () => {
-  const [post, setPost] = useState("");
+  // const [post, setPost] = useState("");
   // const [id, setId] = useState("");
   // const [isUpdate, setIsUpdate] = useState(false);
 
@@ -26,18 +27,18 @@ const MyPost = () => {
 
   const db = getDatabase();
 
-  let handlePost = () => {
-    set(push(ref(db, "post")), {
-      postCreateId: userInfo.uid,
-      postby: userInfo.displayName,
-      data: post,
-      date: `${new Date().getFullYear()}/${
-        new Date().getMonth() + 1
-      }/${new Date().getDate()}`,
-    }).then(() => {
-      setPost("");
-    });
-  };
+  // let handlePost = () => {
+  //   set(push(ref(db, "post")), {
+  //     postCreateId: userInfo.uid,
+  //     postby: userInfo.displayName,
+  //     data: post,
+  //     date: `${new Date().getFullYear()}/${
+  //       new Date().getMonth() + 1
+  //     }/${new Date().getDate()}`,
+  //   }).then(() => {
+  //     setPost("");
+  //   });
+  // };
 
   useEffect(() => {
     const postRef = ref(db, "post");
@@ -74,15 +75,16 @@ const MyPost = () => {
 
   return (
     <div className="h-screen pt-2 pb-5 ">
-     <div className="flex items-center w-full mx-auto sm:w-1/3">
+      <CreatePost/>
+     {/* <div className="flex items-center w-full mx-auto sm:w-1/3">
         <input
           value={post}
           className="w-full rounded-md resize-x dark:bg-dark dark:bg-bbdark"
           type="text"
           onChange={(e) => setPost(e.target.value)}
         />
-        {/* {!isUpdate && (
-         )} */}
+        {!isUpdate && (
+         )}
         <button
           onClick={handlePost}
           className="px-4 py-2 font-bold text-white bg-green-600 rounded-md "
@@ -91,21 +93,21 @@ const MyPost = () => {
         </button>
      
      
-     </div>
-      <div className="flex flex-col sm:flex-row ">
+     </div> */}
+      <div className="flex flex-col mt-4 sm:flex-row ">
         <div className="items-center ">
-          {
-            // isUpdate && (
-            //   <button
-            //   onClick={handleUpdate}
-            //   className="w-full px-2 py-1 mt-2 font-bold text-white bg-yellow-600 rounded-md "
-            // >
-            //   update
-            // </button>
-            // )
-          }
+          {/* {
+            isUpdate && (
+              <button
+              onClick={handleUpdate}
+              className="w-full px-2 py-1 mt-2 font-bold text-white bg-yellow-600 rounded-md "
+            >
+              update
+            </button>
+            )
+          } */}
 
-          <div className="overflow-y-scroll h-[600px] ">
+          <div className="overflow-y-scroll space-y-2 h-[600px] ">
             {showPost.map((item, i) => (
               <div key={i} className="font-sans font-semibold">
                 <h1 className="text-lg">{item.postby}</h1>
@@ -130,7 +132,7 @@ const MyPost = () => {
           {/* <Friends /> */}
           <MyGroup />
           <BlockUser />
-          <FriendRequest/>
+          {/* <FriendRequest/> */}
         </div>
       </div>
     </div>

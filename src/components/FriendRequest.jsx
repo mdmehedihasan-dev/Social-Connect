@@ -66,14 +66,7 @@ const FriendRequest = () => {
          <div className="left-0 flex items-center justify-between pb-4 bg-white dark:bg-dark -top-2">
             <h2 className="font-mono text-2xl">Friend Request </h2>
           </div>
-      {/* <div
-        ref={dropdownRef}
-        className="relative flex items-center justify-center w-10 h-10 text-xl text-white bg-purple-600 rounded-full cursor-pointer md:w-16 md:h-16 md:text-4xl"
-      >
-        <FaUserFriends />
-        
-      </div> */}
-      {/* {show && (    )}  */}
+   
         <div className="h-auto p-2 bg-white dark:bg-dark ">
           {/* friends header  */}
        

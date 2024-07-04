@@ -26,7 +26,7 @@ function App() {
         <Route path="/forgetpassword" element={<ForgetPassword />} />
         <Route path="/dashboard" element={<DashBoard />}>
         <Route path="home" element={<Home/>} />
-          <Route path="message" element={<Message />} />
+          <Route path="message" element={<Message/>} />
           <Route path="allusers" element={<UserList/>} />
           <Route path="friendrequest" element={<FriendRequest/>} />
           <Route path="mypost" element={<MyPost/>} />

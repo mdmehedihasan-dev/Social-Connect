@@ -102,12 +102,12 @@ const Login = () => {
           <h2 className="font-mono text-4xl font-bold text-blue-700">
           Social Connect
           </h2>
-          <p className="mt-5 font-sans text-xl ">
+          <p className="mt-5 font-mono text-xl ">
             Hey! Social Connect helps you connect with people and share your messages & post🙋‍♂️
           </p>
           <br />
-          <p className="font-serif text-xl text-red-600 ">
-          Social Contact is Still under development in some feature but you can use it to send messages to your friends and create a Post.
+          <p className="font-mono text-xl text-red-600 ">
+          Social Connect is Still under development in some feature but you can use it to send messages to your friends and create a Post.
           </p>
         </div>
 
@@ -122,7 +122,7 @@ const Login = () => {
               <div>
                 <label>Email :</label> <br />
                 <input
-                  className="w-full px-2 py-1 mt-2 rounded-md md:w-96 outline-blue-700 outline"
+                  className="w-full px-2 py-1 mt-2 rounded-md dark:bg-black md:w-96 outline-blue-700 outline"
                   placeholder="email"
                   type="email"
                   id="email"
@@ -133,7 +133,7 @@ const Login = () => {
                 <div className="relative">
                   <label>Password :</label> <br />
                   <input
-                    className="w-full px-2 py-1 mt-2 rounded-md md:w-96 outline-blue-700 outline"
+                    className="w-full px-2 py-1 mt-2 rounded-md dark:bg-black md:w-96 outline-blue-700 outline"
                     placeholder="Password"
                     type={!showPass ? "password" : "text"}
                     id="password"

@@ -148,6 +148,16 @@ const Navbar = () => {
           </div>
         </Link>
         <Link
+          className={location.pathname == "/dashboard/messages"}
+          to={"/dashboard/message"}
+          
+        >
+          <div className="flex items-center px-5 pt-2 font-bold text-center gap-x-4">
+          <AiFillMessage/>
+            <p>Messages</p>
+          </div>
+        </Link>
+        <Link
           className={location.pathname == "/dashboard/allusers"}
           to={"/dashboard/allusers"}
         >
